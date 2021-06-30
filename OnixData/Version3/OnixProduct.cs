@@ -42,8 +42,6 @@ namespace OnixData.Version3
 
             ISBN = UPC = "";
 
-            eanField = -1;
-
             productIdentifierField = shortProductIdentifierField = new OnixProductId[0];
             barcodeField           = shortBarcodeField           = new OnixBarcode[0];
             productSupplyField     = shortProductSupplyField     = new OnixProductSupply[0];
@@ -62,7 +60,7 @@ namespace OnixData.Version3
         private int    recordSourceTypeField;
 
         private string isbnField;
-        private long   eanField;
+        private string eanField;
         private string upcField;
 
         private OnixProductId[]       productIdentifierField;
@@ -160,14 +158,14 @@ namespace OnixData.Version3
             }
         }
 
-        public long EAN
+        public string EAN
         {
             get
             {
                 OnixProductId[] ProductIdList = OnixProductIdList;
 
-                long TempEAN = this.eanField;
-                if (TempEAN <= 0)
+                string TempEAN = this.eanField;
+                if (String.IsNullOrEmpty(TempEAN))
                 {
                     if ((ProductIdList != null) && (ProductIdList.Length > 0))
                     {
@@ -176,7 +174,7 @@ namespace OnixData.Version3
                                                      (x.ProductIDType == CONST_PRODUCT_TYPE_ISBN13)).LastOrDefault();
 
                         if ((EanProductId != null) && !String.IsNullOrEmpty(EanProductId.IDValue))
-                            TempEAN = this.eanField = Convert.ToInt64(EanProductId.IDValue);
+                            TempEAN = this.eanField = EanProductId.IDValue;
                     }
                 }
 
