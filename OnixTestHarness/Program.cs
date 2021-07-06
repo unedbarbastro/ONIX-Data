@@ -146,7 +146,7 @@ namespace OnixTestHarness
 
                         foreach (OnixProduct TmpProduct in V3Parser)
                         {
-                            long   lTempEAN  = TmpProduct.EAN;
+                            string sTempEAN  = TmpProduct.EAN;
                             string sTempISBN = TmpProduct.ISBN;
 
                             OnixData.Version3.Price.OnixPrice USDPrice = TmpProduct.USDRetailPrice;
@@ -178,7 +178,7 @@ namespace OnixTestHarness
 
                         foreach (OnixProduct TmpProduct in V3Parser)
                         {
-                            long   lTempEAN  = TmpProduct.EAN;
+                            string sTempEAN  = TmpProduct.EAN;
                             string sTempISBN = TmpProduct.ISBN;
 
                             OnixContributor MainAuthor = TmpProduct.PrimaryAuthor;
@@ -214,7 +214,7 @@ namespace OnixTestHarness
 
                         foreach (OnixProduct TmpProduct in V3Parser)
                         {
-                            long   lTempEAN  = TmpProduct.EAN;
+                            string sTempEAN  = TmpProduct.EAN;
                             string sTempISBN = TmpProduct.ISBN;
 
                             OnixContributor MainAuthor = TmpProduct.PrimaryAuthor;
