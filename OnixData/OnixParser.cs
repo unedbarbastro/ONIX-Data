@@ -336,6 +336,7 @@ namespace OnixData
                     {
                         CurrentCommList.AddRange(CurrentRecord.CollateralDetail.OnixTextContentList);
                     }
+                    CurrentRecord.RawXmlNode = sInputXml;
                 }
                 catch (Exception ex)
                 {

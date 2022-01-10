@@ -30,6 +30,7 @@ namespace OnixData.Version3.Publishing
 
         private string dateField;
         private string pubDateRoleField;
+        private string dateFormatField;
 
         #region Helper Methods
 
@@ -61,6 +62,13 @@ namespace OnixData.Version3.Publishing
         {
             get { return this.pubDateRoleField; }
             set { this.pubDateRoleField = value; }
+        }
+
+        /// <remarks/>
+        public string DateFormat
+        {
+            get { return this.dateFormatField; }
+            set { this.dateFormatField = value; }
         }
 
         #endregion

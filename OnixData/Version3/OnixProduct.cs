@@ -32,6 +32,8 @@ namespace OnixData.Version3
         public const int CONST_PRODUCT_TYPE_GTIN   = 14;
         public const int CONST_PRODUCT_TYPE_ISBN13 = 15;
 
+        public const int CONST_EXTENT_TYPE_FILESIZE = 22;
+
         #endregion
 
         public OnixProduct()
@@ -55,6 +57,7 @@ namespace OnixData.Version3
             ParsingError = null;
         }
 
+        private string rawXmlNodeField;
         private string recordReferenceField;
         private int    notificationTypeField;
         private int    recordSourceTypeField;
@@ -246,6 +249,32 @@ namespace OnixData.Version3
 
                 return sLibCongressNum;
             }
+        }
+
+        public string Filesize()
+        {
+            var extent = DescriptiveDetail?.Extent?.FirstOrDefault(x => x.ExtentType == CONST_EXTENT_TYPE_FILESIZE);
+            if (extent != null)
+            {
+                var units = "";
+                switch (extent.ExtentUnit)
+                {
+                    case 17:
+                        units = "bytes";
+                        break;
+                    case 18:
+                        units = "Kbytes";
+                        break;
+                    case 19:
+                        units = "Mbytes";
+                        break;
+                    default:
+                        units = "ExtentUnit:" + extent.ExtentUnit.ToString();
+                        break;
+                }
+                return $"{extent.ExtentValue} {units}";
+            }
+            return null;
         }
 
         public string NumberOfPages
@@ -801,6 +830,12 @@ namespace OnixData.Version3
         #endregion
 
         #region Reference Tags
+
+        public string RawXmlNode
+        {
+            get { return this.rawXmlNodeField; }
+            set { this.rawXmlNodeField = value; }
+        }
 
         /// <remarks/>
         public string RecordReference

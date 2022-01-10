@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,7 +81,7 @@ namespace OnixData.Legacy
                 decimal nMeasurementVal = 0;
 
                 if (!String.IsNullOrEmpty(Measurement))
-                    Decimal.TryParse(Measurement, out nMeasurementVal);
+                    Decimal.TryParse(Measurement, NumberStyles.Any, CultureInfo.InvariantCulture, out nMeasurementVal);
 
                 return nMeasurementVal;
             }

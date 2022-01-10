@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace OnixData.Version3.Price
                 decimal nPercent = 0;
 
                 if (!String.IsNullOrEmpty(TaxRatePercent))
-                    Decimal.TryParse(TaxRatePercent, out nPercent);
+                    Decimal.TryParse(TaxRatePercent, NumberStyles.Any, CultureInfo.InvariantCulture, out nPercent);
 
                 return nPercent;
             }

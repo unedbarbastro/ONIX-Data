@@ -105,6 +105,8 @@
     <Compile Include="Version3\Related\OnixWorkIdentifier.cs" />
     <Compile Include="Version3\Supply\OnixReturnsConditions.cs" />
     <Compile Include="Version3\Text\OnixContentDate.cs" />
+    <Compile Include="Version3\Text\OnixResourceVersion.cs" />
+    <Compile Include="Version3\Text\OnixSupportingResource.cs" />
     <Compile Include="Version3\Title\OnixCollection.cs" />
     <Compile Include="Version3\OnixContributor.cs" />
     <Compile Include="Version3\OnixDescriptiveDetail.cs" />
