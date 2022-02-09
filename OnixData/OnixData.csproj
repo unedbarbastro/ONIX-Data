@@ -72,6 +72,7 @@
     <Compile Include="Legacy\OnixLegacyPrice.cs" />
     <Compile Include="Legacy\OnixLegacyTitle.cs" />
     <Compile Include="Legacy\OnixLegacySalesRights.cs" />
+    <Compile Include="OnixEnumerator.cs" />
     <Compile Include="OnixLegacyParser.cs" />
     <Compile Include="OnixLegacyPlusParser.cs" />
     <Compile Include="OnixParser.cs" />
