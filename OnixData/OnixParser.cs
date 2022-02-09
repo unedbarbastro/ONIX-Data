@@ -63,7 +63,6 @@ namespace OnixData
             if (PreprocessOnixFile)
                 OnixFilepath.ReplaceIsoLatinEncodings(true, FilterBadEncodings);
 
-            //this.CurrOnixReader = CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag);
             using (var currOnixReader = CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag))
             {
                 if (LoadEntireFileIntoMemory)
@@ -100,7 +99,6 @@ namespace OnixData
 
             this.ParserRefVerFlag = ReferenceVersion;
 
-            //this.CurrOnixReader = CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag);
             using (var currOnixReader = CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag))
             {
                 var rootAttribute = new XmlRootAttribute(sOnixMsgTag);
@@ -111,10 +109,14 @@ namespace OnixData
 
         public XmlReader CreateXmlReader()
         {
-            XmlReader OnixReader =
-                (this.ParserFileInfo != null) ? CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag) : CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag);
-
-            return OnixReader;
+            if (this.ParserFileInfo != null)
+            {
+                return CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag);
+            }
+            else
+            {
+                return CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag);
+            }
         }
 
         static public XmlReader CreateXmlReader(FileInfo CurrOnixFilepath, bool ReportValidationWarnings)
@@ -178,9 +180,8 @@ namespace OnixData
                             XmlNode HeaderNode = HeaderList.Item(0);
                             string sHeaderBody = HeaderNode.OuterXml;
 
-                            OnixHeader =
-                                new XmlSerializer(typeof(OnixHeader), new XmlRootAttribute(sOnixHdrTag))
-                                .Deserialize(new StringReader(sHeaderBody)) as OnixHeader;
+                            var xmlSerializer = new XmlSerializer(typeof(OnixHeader), new XmlRootAttribute(sOnixHdrTag));
+                            OnixHeader = xmlSerializer.Deserialize(new StringReader(sHeaderBody)) as OnixHeader;
                         }
                     }
                 }
