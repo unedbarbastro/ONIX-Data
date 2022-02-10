@@ -14,6 +14,7 @@ namespace OnixData
     public class OnixEnumerator : IDisposable, IEnumerator
     {
         private OnixParser OnixParser = null;
+        private readonly SerializerManager _xmlSerializerManager;
         private XmlReader OnixReader = null;
 
         private int CurrentIndex = -1;
@@ -22,8 +23,6 @@ namespace OnixData
         private XmlNodeList ProductList = null;
         private OnixHeader OnixHeader = null;
         private OnixProduct CurrentRecord = null;
-        private XmlSerializer ProductSerializer = null;
-
 
         #region Properties 
 
@@ -31,27 +30,28 @@ namespace OnixData
 
         #endregion 
 
-        public OnixEnumerator(OnixParser ProvidedParser, FileInfo OnixFilepath)
+        public OnixEnumerator(OnixParser ProvidedParser, FileInfo OnixFilepath, SerializerManager xmlSerializerManager)
         {
             this.ProductXmlTag = ProvidedParser.ReferenceVersion ? "Product" : "product";
 
             this.OnixParser = ProvidedParser;
             this.OnixReader = OnixParser.CreateXmlReader(OnixFilepath, false);
 
-            ProductSerializer = new XmlSerializer(typeof(OnixProduct), new XmlRootAttribute(this.ProductXmlTag));
+            _xmlSerializerManager = xmlSerializerManager;
+            _xmlSerializerManager.RegisterXmlSerializer(typeof(OnixProduct), new XmlRootAttribute(this.ProductXmlTag));
 
             CurrentCommList = new List<OnixTextContent>();
         }
 
-        public OnixEnumerator(OnixParser ProvidedParser, StringBuilder OnixContent)
+        public OnixEnumerator(OnixParser ProvidedParser, StringBuilder OnixContent, SerializerManager xmlSerializerManager)
         {
             this.ProductXmlTag = ProvidedParser.ReferenceVersion ? "Product" : "product";
 
             this.OnixParser = ProvidedParser;
-
             this.OnixReader = OnixParser.CreateXmlReader(OnixContent, false);
 
-            ProductSerializer = new XmlSerializer(typeof(OnixProduct), new XmlRootAttribute(this.ProductXmlTag));
+            _xmlSerializerManager = xmlSerializerManager;
+            _xmlSerializerManager.RegisterXmlSerializer(typeof(OnixProduct), new XmlRootAttribute(this.ProductXmlTag));
 
             CurrentCommList = new List<OnixTextContent>();
         }
@@ -88,7 +88,8 @@ namespace OnixData
                 {
                     using (var stringReader = new StringReader(sInputXml))
                     {
-                        CurrentRecord = this.ProductSerializer.Deserialize(stringReader) as OnixProduct;
+                        var productSerializer = _xmlSerializerManager.GetXmlSerializer(nameof(OnixProduct), this.ProductXmlTag);
+                        CurrentRecord = productSerializer.Deserialize(stringReader) as OnixProduct;
 
                         if ((CurrentRecord != null) && OnixParser.ShouldApplyDefaults)
                             CurrentRecord.ApplyHeaderDefaults(this.OnixHeader);

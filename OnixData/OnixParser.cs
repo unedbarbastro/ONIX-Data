@@ -30,6 +30,7 @@ namespace OnixData
         private bool ParserRefVerFlag = false;
         private bool ParserRVWFlag = false;
         private FileInfo ParserFileInfo = null;
+        private readonly SerializerManager _xmlSerializerManager;
         private StringBuilder ParserFileContent = null;
         //private XmlReader CurrOnixReader = null;
         private OnixMessage CurrOnixMessage = null;
@@ -42,6 +43,7 @@ namespace OnixData
         public bool ShouldApplyDefaults { get; set; }
 
         public OnixParser(FileInfo OnixFilepath,
+                              SerializerManager xmlSerializerManager,
                               bool ReportValidationWarnings,
                               bool PreprocessOnixFile = true,
                               bool LoadEntireFileIntoMemory = false,
@@ -53,6 +55,7 @@ namespace OnixData
             this.ShouldApplyDefaults = true;
 
             this.ParserFileInfo = OnixFilepath;
+            _xmlSerializerManager = xmlSerializerManager;
             this.ParserRVWFlag = ReportValidationWarnings;
 
             bool ReferenceVersion = DetectDtdVersionReference(OnixFilepath);
@@ -67,7 +70,7 @@ namespace OnixData
             {
                 if (LoadEntireFileIntoMemory)
                 {
-                    var xmlSerializer = new XmlSerializer(typeof(OnixMessage), new XmlRootAttribute(sOnixMsgTag));
+                    var xmlSerializer = _xmlSerializerManager.RegisterXmlSerializer(typeof(OnixMessage), new XmlRootAttribute(sOnixMsgTag));
                     this.CurrOnixMessage = xmlSerializer.Deserialize(currOnixReader) as OnixMessage;
                 }
                 else
@@ -76,6 +79,7 @@ namespace OnixData
         }
 
         public OnixParser(string OnixContent,
+                            SerializerManager xmlSerializerManager,
                             bool ReportValidationWarnings,
                             bool PreprocessOnixFile = true,
                             bool FilterBadEncodings = false)
@@ -87,6 +91,7 @@ namespace OnixData
             this.ShouldApplyDefaults = true;
 
             this.ParserFileInfo = null;
+            _xmlSerializerManager = xmlSerializerManager;
             this.ParserRVWFlag = ReportValidationWarnings;
 
             this.ParserFileContent = new StringBuilder(OnixContent);
@@ -102,7 +107,7 @@ namespace OnixData
             using (var currOnixReader = CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag))
             {
                 var rootAttribute = new XmlRootAttribute(sOnixMsgTag);
-                var xmlSerializer = new XmlSerializer(typeof(OnixMessage), rootAttribute);
+                var xmlSerializer = _xmlSerializerManager.RegisterXmlSerializer(typeof(OnixMessage), rootAttribute);
                 this.CurrOnixMessage = xmlSerializer.Deserialize(currOnixReader) as OnixMessage;
             }
         }
@@ -180,7 +185,7 @@ namespace OnixData
                             XmlNode HeaderNode = HeaderList.Item(0);
                             string sHeaderBody = HeaderNode.OuterXml;
 
-                            var xmlSerializer = new XmlSerializer(typeof(OnixHeader), new XmlRootAttribute(sOnixHdrTag));
+                            var xmlSerializer = _xmlSerializerManager.GetXmlSerializer(nameof(OnixMessage), sOnixHdrTag);
                             OnixHeader = xmlSerializer.Deserialize(new StringReader(sHeaderBody)) as OnixHeader;
                         }
                     }
@@ -215,9 +220,9 @@ namespace OnixData
         public OnixEnumerator GetEnumerator()
         {
             if (this.ParserFileInfo != null)
-                return new OnixEnumerator(this, this.ParserFileInfo);
+                return new OnixEnumerator(this, this.ParserFileInfo, _xmlSerializerManager);
             else if (this.ParserFileContent != null)
-                return new OnixEnumerator(this, this.ParserFileContent);
+                return new OnixEnumerator(this, this.ParserFileContent, _xmlSerializerManager);
             else
                 return null;
 

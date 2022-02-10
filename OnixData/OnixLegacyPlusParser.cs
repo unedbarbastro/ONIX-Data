@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using System.Xml.Schema;
-
-using OnixData.Legacy;
+using System.Xml.Serialization;
 using OnixData.Extensions;
+using OnixData.Legacy;
 
 namespace OnixData
 {
@@ -26,21 +25,22 @@ namespace OnixData
     {
         #region CONSTANTS
 
-        private const int    CONST_MSG_REFERENCE_LENGTH = 512;
-        private const int    CONST_BLOCK_COUNT_SIZE     = 50000000;
+        private const int CONST_MSG_REFERENCE_LENGTH = 512;
+        private const int CONST_BLOCK_COUNT_SIZE = 50000000;
 
         private const string CONST_ONIX_MESSAGE_REFERENCE_TAG = "ONIXMessage";
-        private const string CONST_ONIX_MESSAGE_SHORT_TAG     = "ONIXmessage";
+        private const string CONST_ONIX_MESSAGE_SHORT_TAG = "ONIXmessage";
 
         private const string CONST_ONIX_HEADER_REFERENCE_TAG = "Header";
-        private const string CONST_ONIX_HEADER_SHORT_TAG     = "header";
+        private const string CONST_ONIX_HEADER_SHORT_TAG = "header";
 
         #endregion
 
-        private bool       ParserRefVerFlag  = false;
-        private bool       ParserRVWFlag     = false;
-        private bool       PerformValidFlag  = false;
-        private FileInfo   ParserFileInfo    = null;
+        private bool ParserRefVerFlag = false;
+        private bool ParserRVWFlag = false;
+        private bool PerformValidFlag = false;
+        private FileInfo ParserFileInfo = null;
+        private readonly SerializerManager _xmlSerializerManager;
 
         public bool PerformValidation
         {
@@ -54,29 +54,32 @@ namespace OnixData
 
         public bool ShouldApplyDefaults { get; set; }
 
-        public OnixLegacyPlusParser(FileInfo LegacyOnixFilepath, 
+        public OnixLegacyPlusParser(FileInfo LegacyOnixFilepath,
+                                        SerializerManager xmlSerializerManager,
                                         bool ExecuteValidation,
                                         bool PreprocessOnixFile = true)
         {
             if (!File.Exists(LegacyOnixFilepath.FullName))
                 throw new Exception("ERROR!  File(" + LegacyOnixFilepath + ") does not exist.");
 
-            this.ParserFileInfo      = LegacyOnixFilepath;
-            this.ParserRVWFlag       = true;
+            this.ParserFileInfo = LegacyOnixFilepath;
+            _xmlSerializerManager = xmlSerializerManager;
+            this.ParserRVWFlag = true;
             this.ShouldApplyDefaults = true;
-            this.PerformValidFlag    = ExecuteValidation;
+            this.PerformValidFlag = ExecuteValidation;
 
             if (PreprocessOnixFile)
                 LegacyOnixFilepath.ReplaceIsoLatinEncodingsMT(true);
 
-            bool   ReferenceVersion = DetectVersionReference(LegacyOnixFilepath);
-            string sOnixMsgTag      = ReferenceVersion ? CONST_ONIX_MESSAGE_REFERENCE_TAG : CONST_ONIX_MESSAGE_SHORT_TAG;
+            bool ReferenceVersion = DetectVersionReference(LegacyOnixFilepath);
+            string sOnixMsgTag = ReferenceVersion ? CONST_ONIX_MESSAGE_REFERENCE_TAG : CONST_ONIX_MESSAGE_SHORT_TAG;
 
             this.ParserRefVerFlag = ReferenceVersion;
         }
 
         public OnixLegacyPlusParser(bool ExecuteValidation,
                                 FileInfo LegacyOnixFilepath,
+                                SerializerManager xmlSerializerManager,
                                     bool ReferenceVersion,
                                     bool PreprocessOnixFile = true)
         {
@@ -85,11 +88,12 @@ namespace OnixData
             if (!File.Exists(LegacyOnixFilepath.FullName))
                 throw new Exception("ERROR!  File(" + LegacyOnixFilepath + ") does not exist.");
 
-            this.ParserRefVerFlag    = ReferenceVersion;
-            this.ParserFileInfo      = LegacyOnixFilepath;
-            this.ParserRVWFlag       = true;
+            this.ParserRefVerFlag = ReferenceVersion;
+            this.ParserFileInfo = LegacyOnixFilepath;
+            _xmlSerializerManager = xmlSerializerManager;
+            this.ParserRVWFlag = true;
             this.ShouldApplyDefaults = true;
-            this.PerformValidFlag    = ExecuteValidation;
+            this.PerformValidFlag = ExecuteValidation;
 
             if (PreprocessOnixFile)
                 LegacyOnixFilepath.ReplaceIsoLatinEncodingsMT(true);
@@ -97,7 +101,7 @@ namespace OnixData
 
         static public XmlReader CreateXmlReader(FileInfo LegacyOnixFilepath, bool ReportValidationWarnings, bool ExecutionValidation)
         {
-            XmlReader OnixXmlReader = 
+            XmlReader OnixXmlReader =
                 new OnixXmlTextReader(LegacyOnixFilepath) { DtdProcessing = DtdProcessing.Ignore };
 
             return OnixXmlReader;
@@ -107,7 +111,7 @@ namespace OnixData
         {
             get
             {
-                string sOnixHdrTag = 
+                string sOnixHdrTag =
                     this.ParserRefVerFlag ? CONST_ONIX_HEADER_REFERENCE_TAG : CONST_ONIX_HEADER_SHORT_TAG;
 
                 OnixLegacyHeader LegacyHeader = new OnixLegacyHeader();
@@ -123,9 +127,8 @@ namespace OnixData
 
                             string sHeaderBody = reader.ReadOuterXml();
 
-                            LegacyHeader =
-                                new XmlSerializer(typeof(OnixLegacyHeader), new XmlRootAttribute(sOnixHdrTag))
-                                .Deserialize(new StringReader(sHeaderBody)) as OnixLegacyHeader;
+                            var xmlSerializer = _xmlSerializerManager.RegisterXmlSerializer(typeof(OnixLegacyHeader), new XmlRootAttribute(sOnixHdrTag));
+                            LegacyHeader = xmlSerializer.Deserialize(new StringReader(sHeaderBody)) as OnixLegacyHeader;
 
                             break;
                         }
@@ -148,7 +151,7 @@ namespace OnixData
 
         public OnixLegacyPlusEnumerator GetEnumerator()
         {
-            return new OnixLegacyPlusEnumerator(this, this.ParserFileInfo);
+            return new OnixLegacyPlusEnumerator(this, this.ParserFileInfo, _xmlSerializerManager);
         }
 
         #region Support Methods
@@ -168,7 +171,7 @@ namespace OnixData
             }
 
             string sRefMsgTag = "<" + CONST_ONIX_MESSAGE_REFERENCE_TAG;
-            string sFileHead  = Encoding.Default.GetString(buffer);
+            string sFileHead = Encoding.Default.GetString(buffer);
             if (sFileHead.Contains(sRefMsgTag))
                 bReferenceVersion = true;
             else
@@ -178,94 +181,5 @@ namespace OnixData
         }
 
         #endregion
-    }
-
-    public class OnixLegacyPlusEnumerator : IDisposable, IEnumerator
-    {
-        private OnixLegacyPlusParser OnixParser = null;
-        private XmlReader            OnixReader = null;
-        
-        private string             ProductXmlTag     = null;
-        private OnixLegacyHeader   OnixHeader        = null;
-        private OnixLegacyProduct  CurrentRecord     = null;
-        private XmlSerializer      ProductSerializer = null;
-
-        public OnixLegacyPlusEnumerator(OnixLegacyPlusParser ProvidedParser, FileInfo LegacyOnixFilepath) 
-        {
-            this.ProductXmlTag = ProvidedParser.ReferenceVersion ? "Product" : "product";
-
-            this.OnixParser = ProvidedParser;
-            this.OnixReader = OnixLegacyPlusParser.CreateXmlReader(LegacyOnixFilepath, false, ProvidedParser.PerformValidation);
-
-            this.OnixReader.MoveToContent();
-
-            ProductSerializer = new XmlSerializer(typeof(OnixLegacyProduct), new XmlRootAttribute(this.ProductXmlTag));
-        }
-
-        public void Dispose()
-        {
-            if (this.OnixReader != null)
-            {
-                this.OnixReader.Close();
-                this.OnixReader = null;
-            }
-        }
-
-        public bool MoveNext()
-        {
-            bool   bResult      = false;
-            string sProductBody = null;
-
-            if (this.OnixHeader == null)
-                this.OnixHeader = OnixParser.MessageHeader;
-
-            do
-            {
-                if ((this.OnixReader.NodeType == XmlNodeType.Element) && (this.OnixReader.Name == this.ProductXmlTag))
-                {
-                    // XElement product = XElement.ReadFrom(reader) as XElement;
-
-                    sProductBody = this.OnixReader.ReadOuterXml();
-                    break;
-                }
-
-            } while (this.OnixReader.Read());
-
-            if (!String.IsNullOrEmpty(sProductBody))
-            {
-                try
-                {
-                    CurrentRecord =
-                        this.ProductSerializer.Deserialize(new StringReader(sProductBody)) as OnixLegacyProduct;
-
-                    if ((CurrentRecord != null) && OnixParser.ShouldApplyDefaults)
-                        CurrentRecord.ApplyHeaderDefaults(this.OnixHeader);
-
-                    bResult = true;
-                }
-                catch (Exception ex)
-                {
-                    CurrentRecord = new OnixLegacyProduct();
-
-                    CurrentRecord.SetParsingError(ex);
-                    CurrentRecord.SetInputXml(sProductBody);
-                }
-            }
-
-            return bResult;
-        }
-
-        public void Reset()
-        {
-            return;
-        }
-
-        public object Current
-        {
-            get
-            {
-                return CurrentRecord;
-            }
-        }
     }
 }

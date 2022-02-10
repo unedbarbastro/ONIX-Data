@@ -73,12 +73,15 @@
     <Compile Include="Legacy\OnixLegacyTitle.cs" />
     <Compile Include="Legacy\OnixLegacySalesRights.cs" />
     <Compile Include="OnixEnumerator.cs" />
+    <Compile Include="OnixLegacyEnumerator.cs" />
     <Compile Include="OnixLegacyParser.cs" />
+    <Compile Include="OnixLegacyPlusEnumerator.cs" />
     <Compile Include="OnixLegacyPlusParser.cs" />
     <Compile Include="OnixParser.cs" />
     <Compile Include="OnixPlusParser.cs" />
     <Compile Include="OnixXmlTextReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializerManager.cs" />
     <Compile Include="Version3\Content\OnixContentItem.cs" />
     <Compile Include="Version3\Epub\OnixEpubUsageConstraint.cs" />
     <Compile Include="Version3\Epub\OnixEpubUsageLimit.cs" />
@@ -134,7 +137,6 @@
     <Compile Include="Version3\Title\OnixTitleDetail.cs" />
     <Compile Include="Version3\Title\OnixTitleElement.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
