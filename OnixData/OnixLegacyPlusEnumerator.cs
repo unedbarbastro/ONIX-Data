@@ -35,7 +35,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            if (this.OnixReader != null)
+            if (this.OnixReader is not null)
             {
                 this.OnixReader.Close();
                 this.OnixReader = null;
@@ -47,7 +47,7 @@ namespace OnixData
             bool bResult = false;
             string sProductBody = null;
 
-            if (this.OnixHeader == null)
+            if (this.OnixHeader is null)
                 this.OnixHeader = OnixParser.MessageHeader;
 
             do
@@ -69,7 +69,7 @@ namespace OnixData
                     CurrentRecord =
                         this.ProductSerializer.Deserialize(new StringReader(sProductBody)) as OnixLegacyProduct;
 
-                    if ((CurrentRecord != null) && OnixParser.ShouldApplyDefaults)
+                    if ((CurrentRecord is not null) && OnixParser.ShouldApplyDefaults)
                         CurrentRecord.ApplyHeaderDefaults(this.OnixHeader);
 
                     bResult = true;

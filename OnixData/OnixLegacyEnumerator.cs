@@ -77,7 +77,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            if (this.OnixReader != null)
+            if (this.OnixReader is not null)
             {
                 this.OnixReader.Close();
                 this.OnixReader = null;
@@ -88,7 +88,7 @@ namespace OnixData
         {
             bool bResult = true;
 
-            if (this.OnixDoc == null)
+            if (this.OnixDoc is null)
             {
                 this.OnixDoc = new XmlDocument();
                 this.OnixDoc.Load(this.OnixReader);
@@ -96,7 +96,7 @@ namespace OnixData
                 this.ProductList = this.OnixDoc.GetElementsByTagName(this.ProductXmlTag);
             }
 
-            if (this.OnixHeader == null)
+            if (this.OnixHeader is null)
                 this.OnixHeader = OnixParser.MessageHeader;
 
             if (++CurrentIndex < this.ProductList.Count)
@@ -108,14 +108,14 @@ namespace OnixData
                     CurrentRecord =
                         this.ProductSerializer.Deserialize(new StringReader(sInputXml)) as OnixLegacyProduct;
 
-                    if ((CurrentRecord != null) && OnixParser.AlwaysReturnInputXml)
+                    if ((CurrentRecord is not null) && OnixParser.AlwaysReturnInputXml)
                         CurrentRecord.SetInputXml(sInputXml);
 
-                    if ((CurrentRecord != null) && OnixParser.ShouldApplyDefaults)
+                    if ((CurrentRecord is not null) && OnixParser.ShouldApplyDefaults)
                         CurrentRecord.ApplyHeaderDefaults(this.OnixHeader);
 
-                    if ((CurrentRecord != null) &&
-                        (CurrentRecord.OnixOtherTextList != null) &&
+                    if ((CurrentRecord is not null) &&
+                        (CurrentRecord.OnixOtherTextList is not null) &&
                         (CurrentRecord.OnixOtherTextList.Length > 0))
                     {
                         int nOTCount = CurrentRecord.OnixOtherTextList.Length;

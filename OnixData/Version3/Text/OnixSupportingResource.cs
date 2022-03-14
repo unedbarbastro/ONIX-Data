@@ -23,9 +23,9 @@
             {
                 OnixResourceVersion[] ResourceVersions = null;
 
-                if (this.resourceVersionField != null)
+                if (this.resourceVersionField is not null)
                     ResourceVersions = this.resourceVersionField;
-                else if (this.shortResourceVersionField != null)
+                else if (this.shortResourceVersionField is not null)
                     ResourceVersions = this.shortResourceVersionField;
                 else
                     ResourceVersions = new OnixResourceVersion[0];

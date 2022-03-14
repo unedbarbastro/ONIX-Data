@@ -52,11 +52,11 @@ namespace OnixData.Extensions
         /// </summary>
         public static void ApplyHeaderDefaults(this OnixLegacyProduct poOnixProduct, OnixLegacyHeader poOnixHeader)
         {
-            if (poOnixHeader != null)
+            if (poOnixHeader is not null)
             {
                 foreach (OnixLegacySupplyDetail TmpSupplyDetail in poOnixProduct.OnixSupplyDetailList)
                 {
-                    if ((TmpSupplyDetail != null) && (TmpSupplyDetail.OnixPriceList != null))
+                    if ((TmpSupplyDetail is not null) && (TmpSupplyDetail.OnixPriceList is not null))
                     {
                         foreach (OnixLegacyPrice TmpPrice in TmpSupplyDetail.OnixPriceList)
                         {
@@ -79,7 +79,7 @@ namespace OnixData.Extensions
 
                 if (!String.IsNullOrEmpty(poOnixHeader.DefaultClassOfTrade))
                 {
-                    if ((poOnixProduct.USDValidPrice != null) &&
+                    if ((poOnixProduct.USDValidPrice is not null) &&
                         (String.IsNullOrEmpty(poOnixProduct.USDValidPrice.ClassOfTrade)))
                     {
                         poOnixProduct.USDValidPrice.ClassOfTrade = poOnixHeader.DefaultClassOfTrade;
@@ -88,11 +88,11 @@ namespace OnixData.Extensions
 
                 if (!String.IsNullOrEmpty(poOnixHeader.DefaultLanguageOfText))
                 {
-                    if ((poOnixProduct.Language != null) && (String.IsNullOrEmpty(poOnixProduct.Language.LanguageCode)))
+                    if ((poOnixProduct.Language is not null) && (String.IsNullOrEmpty(poOnixProduct.Language.LanguageCode)))
                         poOnixProduct.Language.LanguageCode = poOnixHeader.DefaultLanguageOfText;
                 }
 
-                if (poOnixProduct.OnixMeasureList != null)
+                if (poOnixProduct.OnixMeasureList is not null)
                 {
                     foreach (OnixLegacyMeasure TmpMeasure in poOnixProduct.OnixMeasureList)
                     {
@@ -129,7 +129,7 @@ namespace OnixData.Extensions
         /// </summary>
         public static void ApplyHeaderDefaults(this OnixProduct pOnixProduct, OnixHeader pOnixHeader)
         {
-            if (pOnixHeader != null)
+            if (pOnixHeader is not null)
             {
                 if (!String.IsNullOrEmpty(pOnixHeader.DefaultCurrencyCode) || !String.IsNullOrEmpty(pOnixHeader.DefaultPriceType))
                 {
@@ -137,7 +137,7 @@ namespace OnixData.Extensions
                     {
                         OnixSupplyDetail TmpSupplyDetail = TmpSupply.SupplyDetail;
 
-                        if ((TmpSupplyDetail != null) && (TmpSupplyDetail.OnixPriceList != null))
+                        if ((TmpSupplyDetail is not null) && (TmpSupplyDetail.OnixPriceList is not null))
                         {
                             foreach (OnixPrice TmpPrice in TmpSupplyDetail.OnixPriceList)
                             {
@@ -159,7 +159,7 @@ namespace OnixData.Extensions
 
                 if (!String.IsNullOrEmpty(pOnixHeader.DefaultLanguageOfText))
                 {
-                    if ((pOnixProduct.DescriptiveDetail != null) && (pOnixProduct.DescriptiveDetail.OnixLanguageList != null))
+                    if ((pOnixProduct.DescriptiveDetail is not null) && (pOnixProduct.DescriptiveDetail.OnixLanguageList is not null))
                     {
                         pOnixProduct.DescriptiveDetail.OnixLanguageList
                                                       .Where(x => String.IsNullOrEmpty(x.LanguageCode))
@@ -185,7 +185,7 @@ namespace OnixData.Extensions
         /// </summary>
         public static void Clean(this FileInfo ParserFileInfo, bool ShouldCDATAWrapXHTML = false)
         {
-            if ((ParserFileInfo != null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
+            if ((ParserFileInfo is not null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
             {
                 // Only perform in-memory replacement if flag is set and if the file is less than 250 MB
                 if (ParserFileInfo.Length < CONST_LARGE_FILE_MINIMUM)
@@ -505,7 +505,7 @@ namespace OnixData.Extensions
         /// </summary>
         public static void ReplaceIsoLatinEncodings(this FileInfo ParserFileInfo, bool PerformInMemory, bool ShouldReplaceTechEncodings = true)
         {
-            if ((ParserFileInfo != null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
+            if ((ParserFileInfo is not null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
             {
                 string sControlCharDomain = "[\x00-\x08\x0B\x0C\x0E-\x1F]";
 
@@ -622,7 +622,7 @@ namespace OnixData.Extensions
         /// </summary>
         public static void ReplaceIsoLatinEncodingsMT(this FileInfo ParserFileInfo, bool PerformInMemory, bool ShouldReplaceTechEncodings = true)
         {
-            if ((ParserFileInfo != null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
+            if ((ParserFileInfo is not null) && ParserFileInfo.Exists && !ParserFileInfo.FullName.Contains(CONST_FILENAME_SKIP_REPLACE_MARKER))
             {
                 string sControlCharDomain = "[\x00-\x08\x0B\x0C\x0E-\x1F]";
 

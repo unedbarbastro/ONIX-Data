@@ -26,9 +26,9 @@ namespace OnixData.Version3.Content
             {
                 OnixContentItem[] OnixCtntList = null;
 
-                if (this.contentItemField != null)
+                if (this.contentItemField is not null)
                     OnixCtntList = this.contentItemField;
-                else if (this.shortContentItemField != null)
+                else if (this.shortContentItemField is not null)
                     OnixCtntList = this.shortContentItemField;
                 else
                     OnixCtntList = new OnixContentItem[0];
@@ -47,7 +47,7 @@ namespace OnixData.Version3.Content
             {
                 var PrimaryItem = new OnixContentItem();
 
-                if ((OnixContentItemList != null) && (OnixContentItemList.Length > 0))
+                if ((OnixContentItemList is not null) && (OnixContentItemList.Length > 0))
                     PrimaryItem = OnixContentItemList[0];
 
                 return PrimaryItem;

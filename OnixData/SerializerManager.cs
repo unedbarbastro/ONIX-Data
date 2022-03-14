@@ -37,7 +37,7 @@ namespace OnixData
             string key = GenerateKey(typeName, xmlTag);
 
             var serializer = Serializers[key];
-            if (serializer == null)
+            if (serializer is null)
             {
                 //var xmlSerializer = new XmlSerializer(type, xmlTag);
 

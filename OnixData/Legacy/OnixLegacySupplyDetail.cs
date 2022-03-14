@@ -56,9 +56,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySupplierId[] SupplierIds = null;
 
-                if (supplierIdentifierField != null)
+                if (supplierIdentifierField is not null)
                     SupplierIds = this.supplierIdentifierField;
-                else if (shortSupplierIdentifierField != null)
+                else if (shortSupplierIdentifierField is not null)
                     SupplierIds = this.shortSupplierIdentifierField;
                 else
                     SupplierIds = new OnixLegacySupplierId[0];
@@ -73,9 +73,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyPrice[] Prices = null;
 
-                if (priceField != null)
+                if (priceField is not null)
                     Prices = this.priceField;
-                else if (shortPriceField != null)
+                else if (shortPriceField is not null)
                     Prices = this.shortPriceField;
                 else
                     Prices = new OnixLegacyPrice[0];
@@ -92,14 +92,14 @@ namespace OnixData.Legacy
         {
             bool bHasUSDPrice = false;
 
-            if ((this.OnixPriceList != null) && (this.OnixPriceList.Length > 0))
+            if ((this.OnixPriceList is not null) && (this.OnixPriceList.Length > 0))
             {
                 OnixLegacyPrice[] Prices = this.OnixPriceList;
 
                 OnixLegacyPrice USDPrice =
                     Prices.Where(x => x.HasSoughtRetailPriceType() && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                bHasUSDPrice = (USDPrice != null) && (USDPrice.PriceAmountNum >= 0);
+                bHasUSDPrice = (USDPrice is not null) && (USDPrice.PriceAmountNum >= 0);
             }
 
             return bHasUSDPrice;

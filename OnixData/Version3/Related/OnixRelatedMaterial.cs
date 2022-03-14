@@ -29,9 +29,9 @@ namespace OnixData.Version3.Related
             {
                 OnixRelatedWork[] RelatedWorks = null;
 
-                if (this.relatedWorkField != null)
+                if (this.relatedWorkField is not null)
                     RelatedWorks = this.relatedWorkField;
-                else if (this.shortRelatedWorkField != null)
+                else if (this.shortRelatedWorkField is not null)
                     RelatedWorks = this.shortRelatedWorkField;
                 else
                     RelatedWorks = new OnixRelatedWork[0];
@@ -46,9 +46,9 @@ namespace OnixData.Version3.Related
             {
                 OnixRelatedProduct[] RelatedProducts = null;
 
-                if (this.relatedProductField != null)
+                if (this.relatedProductField is not null)
                     RelatedProducts = this.relatedProductField;
-                else if (this.shortRelatedProductField != null)
+                else if (this.shortRelatedProductField is not null)
                     RelatedProducts = this.shortRelatedProductField;
                 else
                     RelatedProducts = new OnixRelatedProduct[0];

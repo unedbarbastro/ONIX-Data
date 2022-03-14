@@ -183,7 +183,7 @@ namespace OnixData.Legacy
         public string    GetInputXml() { return InputXml; }
         public void      SetInputXml(string value) { InputXml = value; }
 
-        public bool IsValid() { return (ParsingError == null); }
+        public bool IsValid() { return (ParsingError is null); }
 
         public Exception GetParsingError() { return ParsingError; }
         public void      SetParsingError(Exception value) { ParsingError = value; }
@@ -199,7 +199,7 @@ namespace OnixData.Legacy
                 OnixLegacySubject FoundSubject = new OnixLegacySubject();
 
                 OnixLegacySubject[] SubjectList = OnixSubjectList;
-                if ((SubjectList != null) && (SubjectList.Length > 0))
+                if ((SubjectList is not null) && (SubjectList.Length > 0))
                 {
                     FoundSubject =
                         SubjectList.Where(x => x.SubjectSchemeIdentifierNum == OnixLegacySubject.CONST_SUBJ_SCHEME_BISAC_CAT_ID).LastOrDefault();
@@ -216,7 +216,7 @@ namespace OnixData.Legacy
                 OnixLegacySubject FoundSubject = new OnixLegacySubject();
 
                 OnixLegacySubject[] SubjectList = OnixSubjectList;
-                if ((SubjectList != null) && (SubjectList.Length > 0))
+                if ((SubjectList is not null) && (SubjectList.Length > 0))
                 {
                     FoundSubject =
                         SubjectList.Where(x => x.SubjectSchemeIdentifierNum == OnixLegacySubject.CONST_SUBJ_SCHEME_REGION_ID).LastOrDefault();
@@ -230,11 +230,11 @@ namespace OnixData.Legacy
         {
             bool bHasFuturePrice = false;
 
-            if (OnixSupplyDetailList != null)
+            if (OnixSupplyDetailList is not null)
             {
                 foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                 {
-                    if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                    if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                     {
                         bHasFuturePrice =
                             TmpSupplyDetail.OnixPriceList.Any(x => !String.IsNullOrEmpty(x.PriceEffectiveFrom) && (x.PriceTypeCode == OnixLegacyPrice.CONST_PRICE_TYPE_RRP_EXCL));
@@ -252,11 +252,11 @@ namespace OnixData.Legacy
         {
             bool bHasUSDPrice = false;
 
-            if (OnixSupplyDetailList != null)
+            if (OnixSupplyDetailList is not null)
             {
                 foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                 {
-                    if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                    if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                     {
                         bHasUSDPrice =
                             TmpSupplyDetail.OnixPriceList.Any(x => x.HasSoughtPriceTypeCode() && (x.CurrencyCode == "USD"));
@@ -274,11 +274,11 @@ namespace OnixData.Legacy
         {
             bool bHasUSDPrice = false;
 
-            if (OnixSupplyDetailList != null)
+            if (OnixSupplyDetailList is not null)
             {
                 foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                 {
-                    if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                    if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                     {
                         bHasUSDPrice =
                             TmpSupplyDetail.OnixPriceList.Any(x => x.HasSoughtRetailPriceType() && (x.CurrencyCode == "USD"));
@@ -326,11 +326,11 @@ namespace OnixData.Legacy
             {
                 string sUnitCode = "";
 
-                if ((this.Thick != null) && !String.IsNullOrEmpty(this.Thick.Measurement))
+                if ((this.Thick is not null) && !String.IsNullOrEmpty(this.Thick.Measurement))
                     sUnitCode = this.Thick.MeasureUnitCode;
-                else if ((this.Height != null) && !String.IsNullOrEmpty(this.Height.Measurement))
+                else if ((this.Height is not null) && !String.IsNullOrEmpty(this.Height.Measurement))
                     sUnitCode = this.Height.MeasureUnitCode;
-                else if ((this.Width != null) && !String.IsNullOrEmpty(this.Width.Measurement))
+                else if ((this.Width is not null) && !String.IsNullOrEmpty(this.Width.Measurement))
                     sUnitCode = this.Width.MeasureUnitCode;
 
                 return sUnitCode;
@@ -365,13 +365,13 @@ namespace OnixData.Legacy
                 OnixLegacySubject FoundSubject  = new OnixLegacySubject();
 
                 OnixLegacySubject[] SubjectList = OnixSubjectList;
-                if ((SubjectList != null) && (SubjectList.Length > 0))
+                if ((SubjectList is not null) && (SubjectList.Length > 0))
                 {
                     FoundSubject =
                         SubjectList.Where(x => x.SubjectSchemeIdentifierNum == OnixLegacySubject.CONST_SUBJ_SCHEME_KEYWORDS).LastOrDefault();
                 }
 
-                if ((FoundSubject != null) && !String.IsNullOrEmpty(FoundSubject.SubjectHeadingText))
+                if ((FoundSubject is not null) && !String.IsNullOrEmpty(FoundSubject.SubjectHeadingText))
                     FoundKeywords = FoundSubject.SubjectHeadingText;
 
                 return FoundKeywords;
@@ -384,7 +384,7 @@ namespace OnixData.Legacy
             {
                 string[] asKeywordsList = new string[0];
 
-                if ((Keywords != null) && !String.IsNullOrEmpty(Keywords) && Keywords.Contains(CONST_KEYWORDS_DELIM))
+                if ((Keywords is not null) && !String.IsNullOrEmpty(Keywords) && Keywords.Contains(CONST_KEYWORDS_DELIM))
                     asKeywordsList = Keywords.Split(CONST_KEYWORDS_DELIM);
 
                 return asKeywordsList;
@@ -398,10 +398,10 @@ namespace OnixData.Legacy
                 string sAudAgeFrom = "";
 
                 OnixLegacyAudRange[] AudRangeList = audienceRangeField;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixLegacyAudRange TempAudRange in AudRangeList)
                     {
@@ -424,10 +424,10 @@ namespace OnixData.Legacy
                 string sAudAgeTo = "";
 
                 OnixLegacyAudRange[] AudRangeList = audienceRangeField;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixLegacyAudRange TempAudRange in AudRangeList)
                     {
@@ -449,22 +449,22 @@ namespace OnixData.Legacy
             {
                 string sAudCode = "";
 
-                if ((this.shortAudienceCodeField != null) && (this.shortAudienceCodeField.Length > 0))
+                if ((this.shortAudienceCodeField is not null) && (this.shortAudienceCodeField.Length > 0))
                     sAudCode = this.shortAudienceCodeField.Last();
-                else if ((this.audienceCodeField != null) && (this.audienceCodeField.Length > 0))
+                else if ((this.audienceCodeField is not null) && (this.audienceCodeField.Length > 0))
                     sAudCode = this.audienceCodeField.Last();
                 else
                 {
                     OnixLegacyAudience[] AudienceList = audienceField;
-                    if ((AudienceList == null) || (AudienceList.Length <= 0))
+                    if ((AudienceList is null) || (AudienceList.Length <= 0))
                         AudienceList = shortAudienceField;
 
-                    if ((AudienceList != null) && (AudienceList.Length > 0))
+                    if ((AudienceList is not null) && (AudienceList.Length > 0))
                     {
                         OnixLegacyAudience OnixAudCode =
                             AudienceList.Where(x => x.AudienceCodeType == OnixLegacyAudience.CONST_AUD_TYPE_ONIX).LastOrDefault();
 
-                        if ((OnixAudCode != null) && !String.IsNullOrEmpty(OnixAudCode.AudienceCodeValue))
+                        if ((OnixAudCode is not null) && !String.IsNullOrEmpty(OnixAudCode.AudienceCodeValue))
                             sAudCode = OnixAudCode.AudienceCodeValue;
                     }
                 }
@@ -480,10 +480,10 @@ namespace OnixData.Legacy
                 string sAudGradeFrom = "";
 
                 OnixLegacyAudRange[] AudRangeList = audienceRangeField;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixLegacyAudRange TempAudRange in AudRangeList)
                     {
@@ -505,10 +505,10 @@ namespace OnixData.Legacy
                 string sAudGradeTo = "";
 
                 OnixLegacyAudRange[] AudRangeList = audienceRangeField;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixLegacyAudRange TempAudRange in AudRangeList)
                     {
@@ -569,22 +569,22 @@ namespace OnixData.Legacy
                 OnixLegacyTitle FoundTitle = null;
 
                 OnixLegacyTitle[] TitleList = titleField;
-                if ((TitleList == null) || (TitleList.Length <= 0))
+                if ((TitleList is null) || (TitleList.Length <= 0))
                     TitleList = shortTitleField;
 
-                if ((TitleList != null) && (TitleList.Length > 0))
+                if ((TitleList is not null) && (TitleList.Length > 0))
                 {
                     FoundTitle =
                         TitleList.Where(x =>
                             x.TitleType == OnixLegacyTitle.CONST_TITLE_TYPE_DIST_TITLE || !String.IsNullOrEmpty(x.OnixDistinctiveTitle)).LastOrDefault();
 
-                    if ((FoundTitle == null) || String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
+                    if ((FoundTitle is null) || String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
                     {
                         FoundTitle =
                             TitleList.Where(x =>
                                 x.TitleType == OnixLegacyTitle.CONST_TITLE_TYPE_UN_TITLE || !String.IsNullOrEmpty(x.OnixDistinctiveTitle)).LastOrDefault();
 
-                        if ((FoundTitle == null) || String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
+                        if ((FoundTitle is null) || String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
                             FoundTitle = TitleList.Where(x => (x.TitleType < 0)).LastOrDefault();
                     }
                 }
@@ -603,7 +603,7 @@ namespace OnixData.Legacy
                 {
                     OnixLegacyTitle FoundTitle = this.OnixChosenTitleFromList;
 
-                    if ((FoundTitle != null) && !String.IsNullOrEmpty(FoundTitle.Subtitle))
+                    if ((FoundTitle is not null) && !String.IsNullOrEmpty(FoundTitle.Subtitle))
                         this.Subtitle = FoundTitle.Subtitle;
                 }
 
@@ -628,7 +628,7 @@ namespace OnixData.Legacy
                 {
                     OnixLegacyTitle FoundTitle = this.OnixChosenTitleFromList;
 
-                    if ((FoundTitle != null) && !String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
+                    if ((FoundTitle is not null) && !String.IsNullOrEmpty(FoundTitle.OnixDistinctiveTitle))
                         TitleBuilder.Append(FoundTitle.OnixDistinctiveTitle.Trim());
                 }
 
@@ -643,7 +643,7 @@ namespace OnixData.Legacy
                 OnixLegacyContributor PrimaryAuthor = new OnixLegacyContributor();
 
                 OnixLegacyContributor[] ContributorList = OnixContributorList;
-                if ((ContributorList != null) && (ContributorList.Length > 0))
+                if ((ContributorList is not null) && (ContributorList.Length > 0))
                 {
                     PrimaryAuthor =
                         ContributorList.Where(x => x.ContributorRole == OnixLegacyContributor.CONST_CONTRIB_ROLE_AUTHOR).FirstOrDefault();
@@ -660,12 +660,12 @@ namespace OnixData.Legacy
                 string FoundImprintName = "";
 
                 OnixLegacyImprint[] ImprintList = OnixImprintList;
-                if ((ImprintList != null) && (ImprintList.Length > 0))
+                if ((ImprintList is not null) && (ImprintList.Length > 0))
                 {
                     OnixLegacyImprint FoundImprint =
                         ImprintList.Where(x => x.NameCodeType == OnixLegacyImprint.CONST_IMPRINT_ROLE_PROP).LastOrDefault();
 
-                    if (FoundImprint != null)
+                    if (FoundImprint is not null)
                         FoundImprintName = FoundImprint.ImprintName;
                 }
 
@@ -679,11 +679,11 @@ namespace OnixData.Legacy
             {
                 List<OnixLegacySupplierId> PropSuppliers = new List<OnixLegacySupplierId>();
 
-                if (OnixSupplyDetailList != null)
+                if (OnixSupplyDetailList is not null)
                 {
                     foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                     {
-                        if ((TmpSupplyDetail.OnixSupplierIdList != null) && (TmpSupplyDetail.OnixSupplierIdList.Length > 0))
+                        if ((TmpSupplyDetail.OnixSupplierIdList is not null) && (TmpSupplyDetail.OnixSupplierIdList.Length > 0))
                         {
                             List<OnixLegacySupplierId> TmpPropSuppliers =
                                 TmpSupplyDetail.OnixSupplierIdList.Where(x => x.SupplierIDType == OnixLegacySupplierId.CONST_SUPPL_ID_TYPE_PROP).ToList();
@@ -704,10 +704,10 @@ namespace OnixData.Legacy
                 string FoundSeriesNum = "";
 
                 OnixLegacySeries[] SeriesList = OnixSeriesList;
-                if ((SeriesList != null) && (SeriesList.Length > 0))
+                if ((SeriesList is not null) && (SeriesList.Length > 0))
                 {
                     OnixLegacySeries FoundSeries = SeriesList.Where(x => !String.IsNullOrEmpty(x.NumberWithinSeries)).LastOrDefault();
-                    if (FoundSeries != null)
+                    if (FoundSeries is not null)
                         FoundSeriesNum = FoundSeries.NumberWithinSeries;
                 }
 
@@ -722,7 +722,7 @@ namespace OnixData.Legacy
                 string FoundSeriesTitle = "";
 
                 OnixLegacySeries[] SeriesList = OnixSeriesList;
-                if ((SeriesList != null) && (SeriesList.Length > 0))
+                if ((SeriesList is not null) && (SeriesList.Length > 0))
                     FoundSeriesTitle = SeriesList[0].TitleOfSeries;
 
                 return FoundSeriesTitle;
@@ -733,25 +733,25 @@ namespace OnixData.Legacy
         {
             get
             {
-                if (usdPriceField != null)
+                if (usdPriceField is not null)
                     return usdPriceField;
 
                 OnixLegacyPrice USDPrice = USDRetailPrice;
 
-                if ((USDRetailPrice == null) || (USDRetailPrice.PriceAmountNum < 0))
+                if ((USDRetailPrice is null) || (USDRetailPrice.PriceAmountNum < 0))
                 {
-                    if (OnixSupplyDetailList != null)
+                    if (OnixSupplyDetailList is not null)
                     {
                         foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                         {
-                            if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                            if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                             {
                                 OnixLegacyPrice[] Prices = TmpSupplyDetail.OnixPriceList;
 
                                 USDPrice =
                                     Prices.Where(x => x.HasSoughtPriceTypeCode() && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                                if ((USDPrice != null) && (USDPrice.PriceAmountNum >= 0))
+                                if ((USDPrice is not null) && (USDPrice.PriceAmountNum >= 0))
                                     break;
                             }
                         }
@@ -770,18 +770,18 @@ namespace OnixData.Legacy
             {
                 OnixLegacyPrice USDPrice = new OnixLegacyPrice();
 
-                if (OnixSupplyDetailList != null)
+                if (OnixSupplyDetailList is not null)
                 {
                     foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                     {
-                        if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                        if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                         {
                             OnixLegacyPrice[] Prices = TmpSupplyDetail.OnixPriceList;
 
                             USDPrice =
                                 Prices.Where(x => x.HasSoughtSupplyCostPriceType() && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                            if ((USDPrice != null) && (USDPrice.PriceAmountNum >= 0))
+                            if ((USDPrice is not null) && (USDPrice.PriceAmountNum >= 0))
                                 break;
                         }
                     }
@@ -797,18 +797,18 @@ namespace OnixData.Legacy
             {
                 OnixLegacyPrice USDPrice = new OnixLegacyPrice();
 
-                if (OnixSupplyDetailList != null)
+                if (OnixSupplyDetailList is not null)
                 {
                     foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                     {
-                        if ((TmpSupplyDetail.OnixPriceList != null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
+                        if ((TmpSupplyDetail.OnixPriceList is not null) && (TmpSupplyDetail.OnixPriceList.Length > 0))
                         {
                             OnixLegacyPrice[] Prices = TmpSupplyDetail.OnixPriceList;
 
                             USDPrice =
                                 Prices.Where(x => x.HasSoughtRetailPriceType() && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                            if ((USDPrice != null) && (USDPrice.PriceAmountNum >= 0))
+                            if ((USDPrice is not null) && (USDPrice.PriceAmountNum >= 0))
                                 break;
                         }
                     }
@@ -826,7 +826,7 @@ namespace OnixData.Legacy
 
                 OnixLegacySupplyDetail FoundSupplyDetail = new OnixLegacySupplyDetail();
 
-                if (OnixSupplyDetailList != null)
+                if (OnixSupplyDetailList is not null)
                 {
                     foreach (OnixLegacySupplyDetail TmpSupplyDetail in OnixSupplyDetailList)
                     {
@@ -842,7 +842,7 @@ namespace OnixData.Legacy
                 // If we can't find one that mentions a USD price, we'll just accept the first one
                 if (!bFoundDetails)
                 {
-                    if ((OnixSupplyDetailList != null) && (OnixSupplyDetailList.Length > 0))
+                    if ((OnixSupplyDetailList is not null) && (OnixSupplyDetailList.Length > 0))
                         FoundSupplyDetail = OnixSupplyDetailList[0];
                 }
 
@@ -860,22 +860,22 @@ namespace OnixData.Legacy
             {
                 string[] AudCodes = null;
 
-                if (audienceCodeField != null)
+                if (audienceCodeField is not null)
                     AudCodes = this.audienceCodeField;
-                else if (shortAudienceCodeField != null)
+                else if (shortAudienceCodeField is not null)
                     AudCodes = this.shortAudienceCodeField;
                 else
                 {
                     OnixLegacyAudience[] AudienceList = audienceField;
-                    if ((AudienceList == null) || (AudienceList.Length <= 0))
+                    if ((AudienceList is null) || (AudienceList.Length <= 0))
                         AudienceList = shortAudienceField;
 
-                    if ((AudienceList != null) && (AudienceList.Length > 0))
+                    if ((AudienceList is not null) && (AudienceList.Length > 0))
                     {
                         OnixLegacyAudience[] OnixAudCodeList =
                             AudienceList.Where(x => x.AudienceCodeType == OnixLegacyAudience.CONST_AUD_TYPE_ONIX).ToArray();
 
-                        if ((OnixAudCodeList != null) && (OnixAudCodeList.Length > 0))
+                        if ((OnixAudCodeList is not null) && (OnixAudCodeList.Length > 0))
                         {
                             AudCodes = new string[OnixAudCodeList.Length];
 
@@ -901,9 +901,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyAudRange[] AudRanges = null;
 
-                if (this.audienceRangeField != null)
+                if (this.audienceRangeField is not null)
                     AudRanges = this.audienceRangeField;
-                else if (this.shortAudienceRangeField != null)
+                else if (this.shortAudienceRangeField is not null)
                     AudRanges = this.shortAudienceRangeField;
                 else
                     AudRanges = new OnixLegacyAudRange[0];
@@ -918,9 +918,9 @@ namespace OnixData.Legacy
             {
                 string[] EditionTypeCodes = null;
 
-                if (editionTypeCodeField != null)
+                if (editionTypeCodeField is not null)
                     EditionTypeCodes = this.editionTypeCodeField;
-                else if (shortEditionTypeCodeField != null)
+                else if (shortEditionTypeCodeField is not null)
                     EditionTypeCodes = this.shortEditionTypeCodeField;
                 else
                     EditionTypeCodes = new string[0];
@@ -935,9 +935,9 @@ namespace OnixData.Legacy
             {
                 string[] EditionNumbers = null;
 
-                if (editionNumberField != null)
+                if (editionNumberField is not null)
                     EditionNumbers = this.editionNumberField;
-                else if (shortEditionNumberField != null)
+                else if (shortEditionNumberField is not null)
                     EditionNumbers = this.shortEditionNumberField;
                 else
                     EditionNumbers = new string[0];
@@ -952,9 +952,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyComplexity[] Complexities = null;
 
-                if (this.complexityField != null)
+                if (this.complexityField is not null)
                     Complexities = this.complexityField;
-                else if (this.shortComplexityField != null)
+                else if (this.shortComplexityField is not null)
                     Complexities = this.shortComplexityField;
                 else
                     Complexities = new OnixLegacyComplexity[0];
@@ -969,9 +969,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyContributor[] Contributors = null;
 
-                if (this.contributorField != null)
+                if (this.contributorField is not null)
                     Contributors = this.contributorField;
-                else if (this.shortContributorField != null)
+                else if (this.shortContributorField is not null)
                     Contributors = this.shortContributorField;
                 else
                     Contributors = new OnixLegacyContributor[0];
@@ -986,9 +986,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyExtent[] Extents = null;
 
-                if (this.extentField != null)
+                if (this.extentField is not null)
                     Extents = this.extentField;
-                else if (this.shortExtentField != null)
+                else if (this.shortExtentField is not null)
                     Extents = this.shortExtentField;
                 else
                     Extents = new OnixLegacyExtent[0];
@@ -1003,9 +1003,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyImprint[] Imprints = null;
 
-                if (this.imprintField != null)
+                if (this.imprintField is not null)
                     Imprints = this.imprintField;
-                else if (this.shortImprintField != null)
+                else if (this.shortImprintField is not null)
                     Imprints = this.shortImprintField;
                 else
                     Imprints = new OnixLegacyImprint[0];
@@ -1020,9 +1020,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySubject[] MainSubjects = null;
 
-                if (this.mainSubjectField != null)
+                if (this.mainSubjectField is not null)
                     MainSubjects = this.mainSubjectField;
-                else if (this.shortMainSubjectField != null)
+                else if (this.shortMainSubjectField is not null)
                     MainSubjects = this.shortMainSubjectField;
                 else
                     MainSubjects = new OnixLegacySubject[0];
@@ -1037,9 +1037,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyMediaFile[] MediaFiles = null;
 
-                if (this.mediaFileField != null)
+                if (this.mediaFileField is not null)
                     MediaFiles = this.mediaFileField;
-                else if (this.shortMediaFileField != null)
+                else if (this.shortMediaFileField is not null)
                     MediaFiles = this.shortMediaFileField;
                 else
                     MediaFiles = new OnixLegacyMediaFile[0];
@@ -1054,9 +1054,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyMeasure[] Measures = null;
 
-                if (this.measureField != null)
+                if (this.measureField is not null)
                     Measures = this.measureField;
-                else if (this.shortMeasureField != null)
+                else if (this.shortMeasureField is not null)
                     Measures = this.shortMeasureField;
                 else
                     Measures = new OnixLegacyMeasure[0];
@@ -1071,9 +1071,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyOtherText[] OtherTexts = null;
 
-                if (this.otherTextField != null)
+                if (this.otherTextField is not null)
                     OtherTexts = this.otherTextField;
-                else if (this.shortOtherTextField != null)
+                else if (this.shortOtherTextField is not null)
                     OtherTexts = this.shortOtherTextField;
                 else
                     OtherTexts = new OnixLegacyOtherText[0];
@@ -1088,9 +1088,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyProductClassification[] ProductClassifications = null;
 
-                if (this.classificationField != null)
+                if (this.classificationField is not null)
                     ProductClassifications = this.classificationField;
-                else if (this.shortClassificationField != null)
+                else if (this.shortClassificationField is not null)
                     ProductClassifications = this.shortClassificationField;
                 else
                     ProductClassifications = new OnixLegacyProductClassification[0];
@@ -1105,9 +1105,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyRelatedProduct[] RelatedProducts = null;
 
-                if (this.relatedProductField != null)
+                if (this.relatedProductField is not null)
                     RelatedProducts = this.relatedProductField;
-                else if (this.shortRelatedProductField != null)
+                else if (this.shortRelatedProductField is not null)
                     RelatedProducts = this.shortRelatedProductField;
                 else
                     RelatedProducts = new OnixLegacyRelatedProduct[0];
@@ -1122,9 +1122,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySalesRights[] SalesRights = null;
 
-                if (this.salesRightsField != null)
+                if (this.salesRightsField is not null)
                     SalesRights = this.salesRightsField;
-                else if (this.shortSalesRightsField != null)
+                else if (this.shortSalesRightsField is not null)
                     SalesRights = this.shortSalesRightsField;
                 else
                     SalesRights = new OnixLegacySalesRights[0];
@@ -1139,9 +1139,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyNotForSale[] NotForSaleRights = null;
 
-                if (this.notForSaleRightsField != null)
+                if (this.notForSaleRightsField is not null)
                     NotForSaleRights = this.notForSaleRightsField;
-                else if (this.shortNotForSaleRightsField != null)
+                else if (this.shortNotForSaleRightsField is not null)
                     NotForSaleRights = this.shortNotForSaleRightsField;
                 else
                     NotForSaleRights = new OnixLegacyNotForSale[0];
@@ -1156,9 +1156,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySeries[] Series = null;
 
-                if (this.seriesField != null)
+                if (this.seriesField is not null)
                     Series = this.seriesField;
-                else if (this.shortSeriesField != null)
+                else if (this.shortSeriesField is not null)
                     Series = this.shortSeriesField;
                 else
                     Series = new OnixLegacySeries[0];
@@ -1173,9 +1173,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySet[] Set = null;
 
-                if (this.setField != null)
+                if (this.setField is not null)
                     Set = this.setField;
-                else if (this.shortSetField != null)
+                else if (this.shortSetField is not null)
                     Set = this.shortSetField;
                 else
                     Set = new OnixLegacySet[0];
@@ -1190,9 +1190,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySupplyDetail[] SupplyDetails = null;
 
-                if (this.supplyDetailField != null)
+                if (this.supplyDetailField is not null)
                     SupplyDetails = this.supplyDetailField;
-                else if (this.shortSupplyDetailField != null)
+                else if (this.shortSupplyDetailField is not null)
                     SupplyDetails = this.shortSupplyDetailField;
                 else
                     SupplyDetails = new OnixLegacySupplyDetail[0];
@@ -1207,9 +1207,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacySubject[] Subjects = null;
 
-                if (this.subjectField != null)
+                if (this.subjectField is not null)
                     Subjects = this.subjectField;
-                else if (this.shortSubjectField != null)
+                else if (this.shortSubjectField is not null)
                     Subjects = this.shortSubjectField;
                 else
                     Subjects = new OnixLegacySubject[0];
@@ -1853,7 +1853,7 @@ namespace OnixData.Legacy
             OnixLegacyMeasure FoundMeasurement = new OnixLegacyMeasure();
 
             OnixLegacyMeasure[] MeasureList = OnixMeasureList;
-            if ((MeasureList != null) && (MeasureList.Length > 0))
+            if ((MeasureList is not null) && (MeasureList.Length > 0))
             {
                 if (PreferUSMeasurement)
                 {
@@ -1871,12 +1871,12 @@ namespace OnixData.Legacy
                     }
                 }
 
-                if (FoundMeasurement == null)
+                if (FoundMeasurement is null)
                 {
                     FoundMeasurement =
                         MeasureList.Where(x => x.MeasureTypeCode == Type).LastOrDefault();
 
-                    if (FoundMeasurement == null)
+                    if (FoundMeasurement is null)
                         FoundMeasurement = new OnixLegacyMeasure();
                 }
             }
@@ -1894,7 +1894,7 @@ namespace OnixData.Legacy
             OnixLegacySalesRights[] SalesRightsList      = OnixSalesRightsList;
             OnixLegacyNotForSale[]  NotForSaleRightsList = OnixNotForSaleRightsList;
 
-            if ((SalesRightsList != null) && (SalesRightsList.Length > 0))
+            if ((SalesRightsList is not null) && (SalesRightsList.Length > 0))
             {
                 SalesRightsInUS =
                     SalesRightsList.Any(x => aSalesRightsColl.Contains(x.SalesRightsTypeNum) && (x.RightsCountryList.Contains("US")));
@@ -1913,7 +1913,7 @@ namespace OnixData.Legacy
                                              (x.RightsTerritoryList.Contains("WORLD") || x.RightsTerritoryList.Contains("ROW")));
             }
 
-            if ((NotForSaleRightsList != null) && (NotForSaleRightsList.Length > 0))
+            if ((NotForSaleRightsList is not null) && (NotForSaleRightsList.Length > 0))
             {
                 if (!NoSalesRightsInUS)
                 {

@@ -216,7 +216,7 @@ namespace OnixData
         public XmlReader CreateXmlReader()
         {
             XmlReader OnixReader =
-                (this.ParserFileInfo != null) ?
+                (this.ParserFileInfo is not null) ?
                     CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag, false) : CreateXmlReader(this.ParserFileContent, this.ParserRVWFlag, false);
 
             return OnixReader;
@@ -367,7 +367,7 @@ namespace OnixData
 
                 OnixLegacyHeader LegacyHeader = new OnixLegacyHeader();
 
-                if (this.LegacyOnixMessage != null)
+                if (this.LegacyOnixMessage is not null)
                     LegacyHeader = this.LegacyOnixMessage.Header;
                 else
                 {
@@ -378,7 +378,7 @@ namespace OnixData
 
                         XmlNodeList HeaderList = XMLDoc.GetElementsByTagName(sOnixHdrTag);
 
-                        if ((HeaderList != null) && (HeaderList.Count > 0))
+                        if ((HeaderList is not null) && (HeaderList.Count > 0))
                         {
                             XmlNode HeaderNode = HeaderList.Item(0);
                             string sHeaderBody = HeaderNode.OuterXml;
@@ -403,7 +403,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            if (this.LegacyOnixReader != null)
+            if (this.LegacyOnixReader is not null)
             {
                 this.LegacyOnixReader.Close();
                 this.LegacyOnixReader = null;
@@ -417,9 +417,9 @@ namespace OnixData
 
         public OnixLegacyEnumerator GetEnumerator()
         {
-            if (this.ParserFileInfo != null)
+            if (this.ParserFileInfo is not null)
                 return new OnixLegacyEnumerator(this, this.ParserFileInfo, _xmlSerializerManager);
-            else if (this.ParserFileContent != null)
+            else if (this.ParserFileContent is not null)
                 return new OnixLegacyEnumerator(this, this.ParserFileContent, _xmlSerializerManager);
             else
                 return null;

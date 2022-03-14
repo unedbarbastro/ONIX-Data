@@ -28,9 +28,9 @@ namespace OnixData.Version3.Publishing
             {
                 OnixImprintIdentifier[] ImprintIdList = null;
 
-                if (this.imprintIdentifierField != null)
+                if (this.imprintIdentifierField is not null)
                     ImprintIdList = this.imprintIdentifierField;
-                else if (this.shortImprintIdentifierField != null)
+                else if (this.shortImprintIdentifierField is not null)
                     ImprintIdList = this.shortImprintIdentifierField;
                 else
                     ImprintIdList = new OnixImprintIdentifier[0];
@@ -49,12 +49,12 @@ namespace OnixData.Version3.Publishing
 
             bool bIsProprietary = false;
 
-            if ((ImprintIdList != null) && (ImprintIdList.Length > 0))
+            if ((ImprintIdList is not null) && (ImprintIdList.Length > 0))
             {
                 OnixImprintIdentifier FoundImprint =
                     ImprintIdList.Where(x => x.GetImprintIDTypeNum() == OnixImprintIdentifier.CONST_IMPRINT_ROLE_PROP).LastOrDefault();
 
-                if ((FoundImprint != null) && !String.IsNullOrEmpty(FoundImprint.ImprintIDType))
+                if ((FoundImprint is not null) && !String.IsNullOrEmpty(FoundImprint.ImprintIDType))
                     bIsProprietary = true;
             }
 

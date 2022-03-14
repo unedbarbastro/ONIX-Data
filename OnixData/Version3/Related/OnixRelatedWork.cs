@@ -37,9 +37,9 @@ namespace OnixData.Version3.Related
             {
                 OnixWorkIdentifier[] WorkIds = null;
 
-                if (this.workIdentifierField != null)
+                if (this.workIdentifierField is not null)
                     WorkIds = this.workIdentifierField;
-                else if (this.shortWorkIdentifierField != null)
+                else if (this.shortWorkIdentifierField is not null)
                     WorkIds = this.shortWorkIdentifierField;
                 else
                     WorkIds = new OnixWorkIdentifier[0];

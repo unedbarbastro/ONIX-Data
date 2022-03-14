@@ -194,7 +194,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            if (this.OnixReader != null)
+            if (this.OnixReader is not null)
             {
                 this.OnixReader.Close();
                 this.OnixReader = null;

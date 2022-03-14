@@ -61,9 +61,9 @@ namespace OnixData.Version3.Publishing
             {
                 OnixImprint[] Imprints = null;
 
-                if (this.imprintField != null)
+                if (this.imprintField is not null)
                     Imprints = this.imprintField;
-                else if (this.shortImprintField != null)
+                else if (this.shortImprintField is not null)
                     Imprints = this.shortImprintField;
                 else
                     Imprints = new OnixImprint[0];
@@ -78,9 +78,9 @@ namespace OnixData.Version3.Publishing
             {
                 OnixPublisher[] Publishers = null;
 
-                if (this.publisherField != null)
+                if (this.publisherField is not null)
                     Publishers = this.publisherField;
-                else if (this.shortPublisherField != null)
+                else if (this.shortPublisherField is not null)
                     Publishers = this.shortPublisherField;
                 else
                     Publishers = new OnixPublisher[0];
@@ -95,9 +95,9 @@ namespace OnixData.Version3.Publishing
             {
                 OnixPubDate[] PubDates = null;
 
-                if (this.pubDateField != null)
+                if (this.pubDateField is not null)
                     PubDates = this.pubDateField;
-                else if (this.shortPubDateField != null)
+                else if (this.shortPubDateField is not null)
                     PubDates = this.shortPubDateField;
                 else
                     PubDates = new OnixPubDate[0];
@@ -112,16 +112,16 @@ namespace OnixData.Version3.Publishing
             {
                 OnixSalesRights[] SalesRights = null;
 
-                if (this.salesRightsField != null)
+                if (this.salesRightsField is not null)
                     SalesRights = this.salesRightsField;
-                else if (this.shortSalesRightsField != null)
+                else if (this.shortSalesRightsField is not null)
                     SalesRights = this.shortSalesRightsField;
                 else
                     SalesRights = new OnixSalesRights[0];
 
-                if (SalesRights != null)
+                if (SalesRights is not null)
                 {
-                    if (salesRightsList == null)
+                    if (salesRightsList is null)
                     {
                         salesRightsList = new List<string>();
 
@@ -138,7 +138,7 @@ namespace OnixData.Version3.Publishing
                                    .ForEach(x => salesRightsList.AddRange(x.Territory.RegionsExcluded.Split(' ').ToList()));
                     }
 
-                    if (notForSaleList == null)
+                    if (notForSaleList is null)
                     {
                         notForSaleList = new List<string>();
 
@@ -182,12 +182,12 @@ namespace OnixData.Version3.Publishing
 
                 string sOnSaleDate = "";
 
-                if ((DateList != null) && (DateList.Length > 0))
+                if ((DateList is not null) && (DateList.Length > 0))
                 {
                     OnixPubDate FoundOnSaleDate =
                         DateList.Where(x => x.PubDateRoleNum == OnixPubDate.CONST_PUB_DT_ROLE_ON_SALE).LastOrDefault();
 
-                    if ((FoundOnSaleDate != null) && !String.IsNullOrEmpty(FoundOnSaleDate.Date))
+                    if ((FoundOnSaleDate is not null) && !String.IsNullOrEmpty(FoundOnSaleDate.Date))
                         sOnSaleDate = FoundOnSaleDate.Date;
                 }
 
@@ -203,14 +203,14 @@ namespace OnixData.Version3.Publishing
 
                 string sPubDate = "";
 
-                if ((PubDtList != null) && (PubDtList.Length > 0))
+                if ((PubDtList is not null) && (PubDtList.Length > 0))
                 {                    
                     OnixPubDate FoundPubDate =
                         PubDtList
                         .Where(x => (x.PubDateRoleNum == OnixPubDate.CONST_PUB_DT_ROLE_NORMAL) || (x.PubDateRoleNum == OnixPubDate.CONST_PUB_DT_ROLE_PRINT_CTRPRT))
                         .LastOrDefault();
 
-                    if ((FoundPubDate != null) && !String.IsNullOrEmpty(FoundPubDate.Date))
+                    if ((FoundPubDate is not null) && !String.IsNullOrEmpty(FoundPubDate.Date))
                         sPubDate = FoundPubDate.Date;
                 }
 
@@ -242,7 +242,7 @@ namespace OnixData.Version3.Publishing
             OnixSalesRights[] NotForSaleRightsList = 
                 this.OnixSalesRightsList.Where(x => aNonSalesRightsColl.Contains(x.SalesRightTypeNum)).ToArray();
 
-            if ((SalesRightsList != null) && (SalesRightsList.Length > 0))
+            if ((SalesRightsList is not null) && (SalesRightsList.Length > 0))
             {
                 MissingSalesRightsDataFlag =
                     this.OnixSalesRightsList.Any(x => x.SalesRightTypeNum == OnixSalesRights.CONST_MISSING_NUM_VALUE);
@@ -270,7 +270,7 @@ namespace OnixData.Version3.Publishing
                                              (x.RightsIncludedRegionList.Contains("WORLD") || x.RightsIncludedRegionList.Contains("ROW")));
             }
 
-            if ((NotForSaleRightsList != null) && (NotForSaleRightsList.Length > 0))
+            if ((NotForSaleRightsList is not null) && (NotForSaleRightsList.Length > 0))
             {
                 if (!NoSalesRightsInUSFlag)
                 {

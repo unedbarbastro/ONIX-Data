@@ -114,7 +114,7 @@ namespace OnixData
 
         public XmlReader CreateXmlReader()
         {
-            if (this.ParserFileInfo != null)
+            if (this.ParserFileInfo is not null)
             {
                 return CreateXmlReader(this.ParserFileInfo, this.ParserRVWFlag);
             }
@@ -169,7 +169,7 @@ namespace OnixData
 
                 OnixHeader OnixHeader = new OnixHeader();
 
-                if (this.CurrOnixMessage != null)
+                if (this.CurrOnixMessage is not null)
                     OnixHeader = this.CurrOnixMessage.Header;
                 else
                 {
@@ -180,7 +180,7 @@ namespace OnixData
 
                         XmlNodeList HeaderList = XMLDoc.GetElementsByTagName(sOnixHdrTag);
 
-                        if ((HeaderList != null) && (HeaderList.Count > 0))
+                        if ((HeaderList is not null) && (HeaderList.Count > 0))
                         {
                             XmlNode HeaderNode = HeaderList.Item(0);
                             string sHeaderBody = HeaderNode.OuterXml;
@@ -205,7 +205,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            //if (this.CurrOnixReader != null)
+            //if (this.CurrOnixReader is not null)
             //{
             //    this.CurrOnixReader.Close();
             //    this.CurrOnixReader.Dispose();
@@ -219,9 +219,9 @@ namespace OnixData
 
         public OnixEnumerator GetEnumerator()
         {
-            if (this.ParserFileInfo != null)
+            if (this.ParserFileInfo is not null)
                 return new OnixEnumerator(this, this.ParserFileInfo, _xmlSerializerManager);
-            else if (this.ParserFileContent != null)
+            else if (this.ParserFileContent is not null)
                 return new OnixEnumerator(this, this.ParserFileContent, _xmlSerializerManager);
             else
                 return null;

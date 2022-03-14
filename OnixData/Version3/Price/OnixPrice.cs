@@ -81,12 +81,12 @@ namespace OnixData.Version3.Price
             {
                 string DiscAmt = "";
 
-                if ((this.OnixDiscountList != null) && (this.OnixDiscountList.Length > 0))
+                if ((this.OnixDiscountList is not null) && (this.OnixDiscountList.Length > 0))
                 {
                     OnixDiscount FoundDiscount =
                         OnixDiscountList.Where(x => !String.IsNullOrEmpty(x.DiscountAmount)).FirstOrDefault();
 
-                    if ((FoundDiscount != null) && !String.IsNullOrEmpty(FoundDiscount.DiscountAmount))
+                    if ((FoundDiscount is not null) && !String.IsNullOrEmpty(FoundDiscount.DiscountAmount))
                         DiscAmt = FoundDiscount.DiscountAmount;
                 }
 
@@ -100,12 +100,12 @@ namespace OnixData.Version3.Price
             {
                 string DiscPct = "";
 
-                if ((this.OnixDiscountList != null) && (this.OnixDiscountList.Length > 0))
+                if ((this.OnixDiscountList is not null) && (this.OnixDiscountList.Length > 0))
                 {
                     OnixDiscount FoundDiscount =
                         OnixDiscountList.Where(x => !String.IsNullOrEmpty(x.DiscountPercent)).FirstOrDefault();
 
-                    if ((FoundDiscount != null) && !String.IsNullOrEmpty(FoundDiscount.DiscountPercent))
+                    if ((FoundDiscount is not null) && !String.IsNullOrEmpty(FoundDiscount.DiscountPercent))
                         DiscPct = FoundDiscount.DiscountPercent;
                 }
 
@@ -130,7 +130,7 @@ namespace OnixData.Version3.Price
 
         public bool HasViablePubDiscountCode()
         {
-            return (OnixFirstViableDiscountCoded != null);
+            return (OnixFirstViableDiscountCoded is not null);
         }
 
         public OnixDiscountCoded OnixFirstViableDiscountCoded
@@ -139,12 +139,12 @@ namespace OnixData.Version3.Price
             {
                 OnixDiscountCoded ViableDiscountCoded = null;
 
-                if ((this.OnixDiscountCodedList != null) && (this.OnixDiscountCodedList.Length > 0))
+                if ((this.OnixDiscountCodedList is not null) && (this.OnixDiscountCodedList.Length > 0))
                 {
                     OnixDiscountCoded DiscountCodedCandidate =
                         OnixDiscountCodedList.Where(x => x.IsProprietaryType()).FirstOrDefault();
 
-                    if ((DiscountCodedCandidate != null) && !String.IsNullOrEmpty(DiscountCodedCandidate.DiscountCode))
+                    if ((DiscountCodedCandidate is not null) && !String.IsNullOrEmpty(DiscountCodedCandidate.DiscountCode))
                         ViableDiscountCoded = DiscountCodedCandidate;
                 }
 
@@ -175,9 +175,9 @@ namespace OnixData.Version3.Price
             {
                 OnixDiscount[] DiscountList = null;
 
-                if (discountField != null)
+                if (discountField is not null)
                     DiscountList = this.discountField;
-                else if (shortDiscountField != null)
+                else if (shortDiscountField is not null)
                     DiscountList = this.shortDiscountField;
                 else
                     DiscountList = new OnixDiscount[0];
@@ -192,9 +192,9 @@ namespace OnixData.Version3.Price
             {
                 OnixDiscountCoded[] DiscountCodedList = null;
 
-                if (discountCodedField != null)
+                if (discountCodedField is not null)
                     DiscountCodedList = this.discountCodedField;
-                else if (shortDiscountCodedField != null)
+                else if (shortDiscountCodedField is not null)
                     DiscountCodedList = this.shortDiscountCodedField;
                 else
                     DiscountCodedList = new OnixDiscountCoded[0];

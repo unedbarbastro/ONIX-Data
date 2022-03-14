@@ -33,9 +33,9 @@ namespace OnixData.Version3
             {
                 OnixProduct[] productList = null;
 
-                if (Product != null)
+                if (Product is not null)
                     productList = Product;
-                else if (product != null)
+                else if (product is not null)
                     productList = product;
                 else
                     productList = new OnixProduct[0];

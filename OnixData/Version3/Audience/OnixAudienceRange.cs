@@ -104,9 +104,9 @@ namespace OnixData.Version3.Audience
             {
                 int[] PrecisionList = null;
 
-                if (this.audienceRangePrecisionField != null)
+                if (this.audienceRangePrecisionField is not null)
                     PrecisionList = this.audienceRangePrecisionField;
-                else if (this.shortAudienceRangePrecisionField != null)
+                else if (this.shortAudienceRangePrecisionField is not null)
                     PrecisionList = this.shortAudienceRangePrecisionField;
                 else
                     PrecisionList = new int[0];
@@ -121,9 +121,9 @@ namespace OnixData.Version3.Audience
             {
                 string[] ValueList = null;
 
-                if (this.audienceRangeValueField != null)
+                if (this.audienceRangeValueField is not null)
                     ValueList = this.audienceRangeValueField;
-                else if (this.shortAudienceRangeValueField != null)
+                else if (this.shortAudienceRangeValueField is not null)
                     ValueList = this.shortAudienceRangeValueField;
                 else
                     ValueList = new string[0];
@@ -212,11 +212,11 @@ namespace OnixData.Version3.Audience
         {
             string FoundRangeValue = "";
 
-            if ((AudienceRangeQualifier == pnRangeType) && (OnixAudRangePrecisionList != null))
+            if ((AudienceRangeQualifier == pnRangeType) && (OnixAudRangePrecisionList is not null))
             {
                 int nFoundIndex = Array.IndexOf(OnixAudRangePrecisionList, pnPrecisionType);
 
-                if ((nFoundIndex >= 0) && (OnixAudRangeValueList != null) && (OnixAudRangeValueList.Length >= nFoundIndex))
+                if ((nFoundIndex >= 0) && (OnixAudRangeValueList is not null) && (OnixAudRangeValueList.Length >= nFoundIndex))
                     FoundRangeValue = OnixAudRangeValueList[nFoundIndex];
             }
 

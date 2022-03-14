@@ -97,12 +97,12 @@ namespace OnixData.Legacy
                 string TempISBN = this.isbnField;
                 if (String.IsNullOrEmpty(TempISBN))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixLegacyProductId IsbnProductId =
                             ProductIdList.Where(x => x.ProductIDTypeNum == CONST_PRODUCT_TYPE_ISBN).FirstOrDefault();
 
-                        if ((IsbnProductId != null) && !String.IsNullOrEmpty(IsbnProductId.IDValue))
+                        if ((IsbnProductId is not null) && !String.IsNullOrEmpty(IsbnProductId.IDValue))
                             TempISBN = this.isbnField = IsbnProductId.IDValue;
                     }
                 }
@@ -124,13 +124,13 @@ namespace OnixData.Legacy
                 string TempEAN = this.eanField;
                 if (String.IsNullOrEmpty(TempEAN))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixLegacyProductId EanProductId =
                             ProductIdList.Where(x => (x.ProductIDTypeNum == CONST_PRODUCT_TYPE_EAN) ||
                                                      (x.ProductIDTypeNum == CONST_PRODUCT_TYPE_ISBN13)).FirstOrDefault();
 
-                        if ((EanProductId != null) && !String.IsNullOrEmpty(EanProductId.IDValue))
+                        if ((EanProductId is not null) && !String.IsNullOrEmpty(EanProductId.IDValue))
                             TempEAN = this.eanField = EanProductId.IDValue;
                     }
                 }
@@ -151,12 +151,12 @@ namespace OnixData.Legacy
 
                 OnixLegacyProductId[] ProductIdList = OnixProductIdList;
 
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixLegacyProductId LccnProductId =
                         ProductIdList.Where(x => (x.ProductIDTypeNum == CONST_PRODUCT_TYPE_LCCN)).FirstOrDefault();
 
-                    if ((LccnProductId != null) && !String.IsNullOrEmpty(LccnProductId.IDValue))
+                    if ((LccnProductId is not null) && !String.IsNullOrEmpty(LccnProductId.IDValue))
                         sLibCongressNum = LccnProductId.IDValue;
                 }
 
@@ -172,12 +172,12 @@ namespace OnixData.Legacy
 
                 OnixLegacyProductId[] ProductIdList = OnixProductIdList;
 
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixLegacyProductId PropProductId =
                         ProductIdList.Where(x => (x.ProductIDTypeNum == CONST_PRODUCT_TYPE_PROP)).FirstOrDefault();
 
-                    if ((PropProductId != null) && !String.IsNullOrEmpty(PropProductId.IDValue))
+                    if ((PropProductId is not null) && !String.IsNullOrEmpty(PropProductId.IDValue))
                         sPropId = PropProductId.IDValue;
                 }
 
@@ -194,12 +194,12 @@ namespace OnixData.Legacy
                 string TempUPC = this.upcField;
                 if (String.IsNullOrEmpty(TempUPC))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixLegacyProductId UpcProductId =
                             ProductIdList.Where(x => x.ProductIDTypeNum == CONST_PRODUCT_TYPE_UPC).FirstOrDefault();
 
-                        if ((UpcProductId != null) && !String.IsNullOrEmpty(UpcProductId.IDValue))
+                        if ((UpcProductId is not null) && !String.IsNullOrEmpty(UpcProductId.IDValue))
                             TempUPC = this.upcField = UpcProductId.IDValue;
                     }
                 }
@@ -222,9 +222,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyProductId[] ProductIdList = null;
 
-                if (this.productIdentifierField != null)
+                if (this.productIdentifierField is not null)
                     ProductIdList = this.productIdentifierField;
-                else if (this.shortProductIdentifierField != null)
+                else if (this.shortProductIdentifierField is not null)
                     ProductIdList = this.shortProductIdentifierField;
                 else
                     ProductIdList = new OnixLegacyProductId[0];
@@ -239,9 +239,9 @@ namespace OnixData.Legacy
             {
                 string[] ContentTypeList = null;
 
-                if (this.productContentTypeField != null)
+                if (this.productContentTypeField is not null)
                     ContentTypeList = this.productContentTypeField;
-                else if (this.shortProductContentTypeField != null)
+                else if (this.shortProductContentTypeField is not null)
                     ContentTypeList = this.shortProductContentTypeField;
                 else
                     ContentTypeList = new string[0];
@@ -256,9 +256,9 @@ namespace OnixData.Legacy
             {
                 string[] ProductFormDetailList = null;
 
-                if (this.productFormDetailField != null)
+                if (this.productFormDetailField is not null)
                     ProductFormDetailList = this.productFormDetailField;
-                else if (this.shortProductFormDetailField != null)
+                else if (this.shortProductFormDetailField is not null)
                     ProductFormDetailList = this.shortProductFormDetailField;
                 else
                     ProductFormDetailList = new string[0];
@@ -273,9 +273,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyPublisher[] PubList = null;
 
-                if (this.publisherField != null)
+                if (this.publisherField is not null)
                     PubList = this.publisherField;
-                else if (this.shortPublisherField != null)
+                else if (this.shortPublisherField is not null)
                     PubList = this.shortPublisherField;
                 else
                     PubList = new OnixLegacyPublisher[0];
@@ -573,7 +573,7 @@ namespace OnixData.Legacy
 
                 if (!String.IsNullOrEmpty(PublisherName))
                     FoundPubName = PublisherName;
-                else if ((OnixPublisherList != null) && (OnixPublisherList.Length > 0))
+                else if ((OnixPublisherList is not null) && (OnixPublisherList.Length > 0))
                 {
                     List<int> SoughtPubTypes =
                         new List<int>() { 0, OnixLegacyPublisher.CONST_PUB_ROLE_PUBLISHER, OnixLegacyPublisher.CONST_PUB_ROLE_CO_PUB };
@@ -581,7 +581,7 @@ namespace OnixData.Legacy
                     OnixLegacyPublisher FoundPublisher =
                         OnixPublisherList.Where(x => SoughtPubTypes.Contains(x.PublishingRole)).FirstOrDefault();
 
-                    if ((FoundPublisher != null) && !String.IsNullOrEmpty(FoundPublisher.PublisherName))
+                    if ((FoundPublisher is not null) && !String.IsNullOrEmpty(FoundPublisher.PublisherName))
                         FoundPubName = FoundPublisher.PublisherName;
                 }
 

@@ -58,7 +58,7 @@ namespace OnixData
 
         public void Dispose()
         {
-            if (this.OnixReader != null)
+            if (this.OnixReader is not null)
             {
                 this.OnixReader.Close();
                 this.OnixReader.Dispose();
@@ -69,7 +69,7 @@ namespace OnixData
         {
             bool bResult = true;
 
-            if (OnixDoc == null)
+            if (OnixDoc is null)
             {
                 this.OnixDoc = new XmlDocument();
                 this.OnixDoc.Load(this.OnixReader);
@@ -77,7 +77,7 @@ namespace OnixData
                 this.ProductList = this.OnixDoc.GetElementsByTagName(this.ProductXmlTag);
             }
 
-            if (this.OnixHeader == null)
+            if (this.OnixHeader is null)
                 this.OnixHeader = OnixParser.MessageHeader;
 
             if (++CurrentIndex < this.ProductList.Count)
@@ -91,14 +91,14 @@ namespace OnixData
                         var productSerializer = _xmlSerializerManager.GetXmlSerializer(nameof(OnixProduct), this.ProductXmlTag);
                         CurrentRecord = productSerializer.Deserialize(stringReader) as OnixProduct;
 
-                        if ((CurrentRecord != null) && OnixParser.ShouldApplyDefaults)
+                        if ((CurrentRecord is not null) && OnixParser.ShouldApplyDefaults)
                             CurrentRecord.ApplyHeaderDefaults(this.OnixHeader);
 
                         CurrentCommList.Clear();
 
-                        if ((CurrentRecord != null) &&
-                            (CurrentRecord.CollateralDetail != null) &&
-                            (CurrentRecord.CollateralDetail.OnixTextContentList != null) &&
+                        if ((CurrentRecord is not null) &&
+                            (CurrentRecord.CollateralDetail is not null) &&
+                            (CurrentRecord.CollateralDetail.OnixTextContentList is not null) &&
                             (CurrentRecord.CollateralDetail.OnixTextContentList.Length > 0))
                         {
                             CurrentCommList.AddRange(CurrentRecord.CollateralDetail.OnixTextContentList);

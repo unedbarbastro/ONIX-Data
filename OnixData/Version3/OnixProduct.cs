@@ -22,14 +22,14 @@ namespace OnixData.Version3
     {
         #region CONSTANTS
 
-        public const int CONST_PRODUCT_TYPE_PROP   = 1;
-        public const int CONST_PRODUCT_TYPE_ISBN   = 2;
-        public const int CONST_PRODUCT_TYPE_EAN    = 3;
-        public const int CONST_PRODUCT_TYPE_UPC    = 4;
-        public const int CONST_PRODUCT_TYPE_ISMN   = 5;
-        public const int CONST_PRODUCT_TYPE_DOI    = 6;
-        public const int CONST_PRODUCT_TYPE_LCCN   = 13;
-        public const int CONST_PRODUCT_TYPE_GTIN   = 14;
+        public const int CONST_PRODUCT_TYPE_PROP = 1;
+        public const int CONST_PRODUCT_TYPE_ISBN = 2;
+        public const int CONST_PRODUCT_TYPE_EAN = 3;
+        public const int CONST_PRODUCT_TYPE_UPC = 4;
+        public const int CONST_PRODUCT_TYPE_ISMN = 5;
+        public const int CONST_PRODUCT_TYPE_DOI = 6;
+        public const int CONST_PRODUCT_TYPE_LCCN = 13;
+        public const int CONST_PRODUCT_TYPE_GTIN = 14;
         public const int CONST_PRODUCT_TYPE_ISBN13 = 15;
 
         public const int CONST_EXTENT_TYPE_FILESIZE = 22;
@@ -45,54 +45,54 @@ namespace OnixData.Version3
             ISBN = UPC = "";
 
             productIdentifierField = shortProductIdentifierField = new OnixProductId[0];
-            barcodeField           = shortBarcodeField           = new OnixBarcode[0];
-            productSupplyField     = shortProductSupplyField     = new OnixProductSupply[0];
+            barcodeField = shortBarcodeField = new OnixBarcode[0];
+            productSupplyField = shortProductSupplyField = new OnixProductSupply[0];
 
-            ContentDetail     = new OnixContentDetail();
+            ContentDetail = new OnixContentDetail();
             DescriptiveDetail = new OnixDescriptiveDetail();
-            CollateralDetail  = new OnixCollateralDetail();
-            PublishingDetail  = new OnixPublishingDetail();
-            RelatedMaterial   = new OnixRelatedMaterial();            
+            CollateralDetail = new OnixCollateralDetail();
+            PublishingDetail = new OnixPublishingDetail();
+            RelatedMaterial = new OnixRelatedMaterial();
 
             ParsingError = null;
         }
 
         private string rawXmlNodeField;
         private string recordReferenceField;
-        private int    notificationTypeField;
-        private int    recordSourceTypeField;
+        private int notificationTypeField;
+        private int recordSourceTypeField;
 
         private string isbnField;
         private string eanField;
         private string upcField;
 
-        private OnixProductId[]       productIdentifierField;
-        private OnixProductId[]       shortProductIdentifierField;
+        private OnixProductId[] productIdentifierField;
+        private OnixProductId[] shortProductIdentifierField;
 
-        private OnixBarcode[]         barcodeField;
-        private OnixBarcode[]         shortBarcodeField;
+        private OnixBarcode[] barcodeField;
+        private OnixBarcode[] shortBarcodeField;
 
-        private OnixProductSupply[]     productSupplyField;
-        private OnixProductSupply[]     shortProductSupplyField;
+        private OnixProductSupply[] productSupplyField;
+        private OnixProductSupply[] shortProductSupplyField;
 
-        private OnixCollateralDetail  collateralDetailField;
-        private OnixContentDetail     contentDetailField;
+        private OnixCollateralDetail collateralDetailField;
+        private OnixContentDetail contentDetailField;
         private OnixDescriptiveDetail descriptiveDetailField;
-        private OnixPublishingDetail  publishingDetailField;
-        private OnixRelatedMaterial   relatedMaterialField;
+        private OnixPublishingDetail publishingDetailField;
+        private OnixRelatedMaterial relatedMaterialField;
 
         #region Parsing Error
 
-        private string    InputXml;
+        private string InputXml;
         private Exception ParsingError;
 
-        public string    GetInputXml() { return InputXml; }
-        public void      SetInputXml(string value) { InputXml = value; }
+        public string GetInputXml() { return InputXml; }
+        public void SetInputXml(string value) { InputXml = value; }
 
-        public bool IsValid() { return (ParsingError == null); }
+        public bool IsValid() { return (ParsingError is null); }
 
         public Exception GetParsingError() { return ParsingError; }
-        public void      SetParsingError(Exception value) { ParsingError = value; }
+        public void SetParsingError(Exception value) { ParsingError = value; }
 
         #endregion
 
@@ -104,8 +104,8 @@ namespace OnixData.Version3
             {
                 OnixSubject FoundSubject = new OnixSubject();
 
-                if ((DescriptiveDetail != null) &&
-                    (DescriptiveDetail.OnixSubjectList != null) &&
+                if ((DescriptiveDetail is not null) &&
+                    (DescriptiveDetail.OnixSubjectList is not null) &&
                     (DescriptiveDetail.OnixSubjectList.Length > 0))
                 {
                     FoundSubject =
@@ -122,8 +122,8 @@ namespace OnixData.Version3
             {
                 OnixSubject FoundSubject = new OnixSubject();
 
-                if ((DescriptiveDetail != null) &&
-                    (DescriptiveDetail.OnixSubjectList != null) &&
+                if ((DescriptiveDetail is not null) &&
+                    (DescriptiveDetail.OnixSubjectList is not null) &&
                     (DescriptiveDetail.OnixSubjectList.Length > 0))
                 {
                     FoundSubject =
@@ -143,12 +143,12 @@ namespace OnixData.Version3
                 string TempISBN = this.isbnField;
                 if (String.IsNullOrEmpty(TempISBN))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixProductId IsbnProductId =
                             ProductIdList.Where(x => x.ProductIDType == CONST_PRODUCT_TYPE_ISBN).LastOrDefault();
 
-                        if ((IsbnProductId != null) && !String.IsNullOrEmpty(IsbnProductId.IDValue))
+                        if ((IsbnProductId is not null) && !String.IsNullOrEmpty(IsbnProductId.IDValue))
                             TempISBN = this.isbnField = IsbnProductId.IDValue;
                     }
                 }
@@ -170,13 +170,13 @@ namespace OnixData.Version3
                 string TempEAN = this.eanField;
                 if (String.IsNullOrEmpty(TempEAN))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixProductId EanProductId =
                             ProductIdList.Where(x => (x.ProductIDType == CONST_PRODUCT_TYPE_EAN) ||
                                                      (x.ProductIDType == CONST_PRODUCT_TYPE_ISBN13)).LastOrDefault();
 
-                        if ((EanProductId != null) && !String.IsNullOrEmpty(EanProductId.IDValue))
+                        if ((EanProductId is not null) && !String.IsNullOrEmpty(EanProductId.IDValue))
                             TempEAN = this.eanField = EanProductId.IDValue;
                     }
                 }
@@ -195,8 +195,8 @@ namespace OnixData.Version3
             {
                 string FoundImprintName = "";
 
-                if ((PublishingDetail != null) &&
-                    (PublishingDetail.OnixImprintList != null) &&
+                if ((PublishingDetail is not null) &&
+                    (PublishingDetail.OnixImprintList is not null) &&
                     (PublishingDetail.OnixImprintList.Length > 0))
                 {
                     FoundImprintName = PublishingDetail.OnixImprintList[0].ImprintName;
@@ -215,14 +215,14 @@ namespace OnixData.Version3
                 var SoughtSupplyDetail = USDRetailSupplyDetail;
 
 
-                if ((SoughtSupplyDetail != null) &&
-                    (SoughtSupplyDetail.OnixSupplyDateList != null) &&
+                if ((SoughtSupplyDetail is not null) &&
+                    (SoughtSupplyDetail.OnixSupplyDateList is not null) &&
                     (SoughtSupplyDetail.OnixSupplyDateList.Length > 0))
                 {
                     var SoughtDate =
                         SoughtSupplyDetail.OnixSupplyDateList.Where(x => x.IsLasteDateForReturns()).FirstOrDefault();
 
-                    if ((SoughtDate != null) && !String.IsNullOrEmpty(SoughtDate.Date))
+                    if ((SoughtDate is not null) && !String.IsNullOrEmpty(SoughtDate.Date))
                         sLastDt = SoughtDate.Date;
                 }
 
@@ -238,12 +238,12 @@ namespace OnixData.Version3
 
                 OnixProductId[] ProductIdList = OnixProductIdList;
 
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixProductId LccnProductId =
                         ProductIdList.Where(x => (x.ProductIDType == CONST_PRODUCT_TYPE_LCCN)).LastOrDefault();
 
-                    if ((LccnProductId != null) && !String.IsNullOrEmpty(LccnProductId.IDValue))
+                    if ((LccnProductId is not null) && !String.IsNullOrEmpty(LccnProductId.IDValue))
                         sLibCongressNum = LccnProductId.IDValue;
                 }
 
@@ -254,7 +254,7 @@ namespace OnixData.Version3
         public string Filesize()
         {
             var extent = DescriptiveDetail?.Extent?.FirstOrDefault(x => x.ExtentType == CONST_EXTENT_TYPE_FILESIZE);
-            if (extent != null)
+            if (extent is not null)
             {
                 var units = "";
                 switch (extent.ExtentUnit)
@@ -283,12 +283,12 @@ namespace OnixData.Version3
             {
                 string sNumOfPages = "";
 
-                if ((this.ContentDetail != null) && (this.ContentDetail.PrimaryContentItem != null))
+                if ((this.ContentDetail is not null) && (this.ContentDetail.PrimaryContentItem is not null))
                     sNumOfPages = this.ContentDetail.PrimaryContentItem.NumberOfPages;
 
                 if (String.IsNullOrEmpty(sNumOfPages))
                 {
-                    if ((this.DescriptiveDetail != null) && (this.DescriptiveDetail.OnixExtentList != null))
+                    if ((this.DescriptiveDetail is not null) && (this.DescriptiveDetail.OnixExtentList is not null))
                     {
                         if (this.DescriptiveDetail.PageNumber > 0)
                             sNumOfPages = Convert.ToString(this.DescriptiveDetail.PageNumber);
@@ -301,32 +301,32 @@ namespace OnixData.Version3
 
         public string ProductForm
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.ProductForm : ""); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.ProductForm : ""); }
         }
 
         public string ProductFormDetail
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.ProductForm : ""); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.ProductForm : ""); }
         }
 
         public string[] ProductFormDetailList
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.OnixProductFormDetailList : new string[0]); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.OnixProductFormDetailList : new string[0]); }
         }
 
         public string PrimaryContentType
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.PrimaryContentType : ""); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.PrimaryContentType : ""); }
         }
 
         public string[] AllProductContentTypeList
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.OnixAllContentTypeList : new string[0]); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.OnixAllContentTypeList : new string[0]); }
         }
 
         public string[] ProductContentTypeList
         {
-            get { return (this.DescriptiveDetail != null ? this.DescriptiveDetail.OnixProductContentTypeList : new string[0]); }
+            get { return (this.DescriptiveDetail is not null ? this.DescriptiveDetail.OnixProductContentTypeList : new string[0]); }
         }
 
         public string PROPRIETARY_ID
@@ -337,12 +337,12 @@ namespace OnixData.Version3
 
                 OnixProductId[] ProductIdList = OnixProductIdList;
 
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixProductId PropProductId =
                         ProductIdList.Where(x => (x.ProductIDType == CONST_PRODUCT_TYPE_PROP)).LastOrDefault();
 
-                    if ((PropProductId != null) && !String.IsNullOrEmpty(PropProductId.IDValue))
+                    if ((PropProductId is not null) && !String.IsNullOrEmpty(PropProductId.IDValue))
                         sPropId = PropProductId.IDValue;
                 }
 
@@ -356,14 +356,14 @@ namespace OnixData.Version3
             {
                 string FoundImprintName = "";
 
-                if (this.PublishingDetail != null)
+                if (this.PublishingDetail is not null)
                 {
                     OnixImprint[] ImprintList = this.PublishingDetail.OnixImprintList;
-                    if ((ImprintList != null) && (ImprintList.Length > 0))
+                    if ((ImprintList is not null) && (ImprintList.Length > 0))
                     {
                         OnixImprint FoundImprint = ImprintList.Where(x => x.IsProprietaryName()).LastOrDefault();
 
-                        if (FoundImprint != null)
+                        if (FoundImprint is not null)
                             FoundImprintName = FoundImprint.ImprintName;
                     }
                 }
@@ -378,14 +378,14 @@ namespace OnixData.Version3
             {
                 List<OnixSupplierId> PropSupplierIds = new List<OnixSupplierId>();
 
-                if (this.OnixProductSupplyList != null)
+                if (this.OnixProductSupplyList is not null)
                 {
                     foreach (OnixProductSupply TmpSupply in this.OnixProductSupplyList)
                     {
-                        if ((TmpSupply.SupplyDetail != null) && (TmpSupply.SupplyDetail.OnixSupplierList != null))
+                        if ((TmpSupply.SupplyDetail is not null) && (TmpSupply.SupplyDetail.OnixSupplierList is not null))
                         {
                             TmpSupply.SupplyDetail.OnixSupplierList
-                                                  .Where(x => x.OnixSupplierIdList != null &&
+                                                  .Where(x => x.OnixSupplierIdList is not null &&
                                                               x.OnixSupplierIdList.Any(y => y.SupplierIDType == OnixSupplierId.CONST_SUPPL_ID_TYPE_PROP))
                                                   .ToList()
                                                   .ForEach(x => PropSupplierIds.AddRange(x.OnixSupplierIdList));
@@ -403,8 +403,8 @@ namespace OnixData.Version3
             {
                 string FoundPubName = "";
 
-                if ((PublishingDetail != null) &&
-                    (PublishingDetail.OnixPublisherList != null) &&
+                if ((PublishingDetail is not null) &&
+                    (PublishingDetail.OnixPublisherList is not null) &&
                     (PublishingDetail.OnixPublisherList.Length > 0))
                 {
                     List<int> SoughtPubTypes =
@@ -413,7 +413,7 @@ namespace OnixData.Version3
                     OnixPublisher FoundPublisher =
                         PublishingDetail.OnixPublisherList.Where(x => SoughtPubTypes.Contains(x.PublishingRole)).LastOrDefault();
 
-                    if ((FoundPublisher != null) && !String.IsNullOrEmpty(FoundPublisher.PublisherName))
+                    if ((FoundPublisher is not null) && !String.IsNullOrEmpty(FoundPublisher.PublisherName))
                         FoundPubName = FoundPublisher.PublisherName;
                 }
 
@@ -423,7 +423,7 @@ namespace OnixData.Version3
 
         public string PublishingStatus
         {
-            get { return (PublishingDetail != null) ? PublishingDetail.PublishingStatus : ""; }
+            get { return (PublishingDetail is not null) ? PublishingDetail.PublishingStatus : ""; }
         }
 
         public OnixContributor PrimaryAuthor
@@ -432,7 +432,7 @@ namespace OnixData.Version3
             {
                 OnixContributor MainAuthor = new OnixContributor();
 
-                if ((DescriptiveDetail.OnixContributorList != null) && (DescriptiveDetail.OnixContributorList.Length > 0))
+                if ((DescriptiveDetail.OnixContributorList is not null) && (DescriptiveDetail.OnixContributorList.Length > 0))
                 {
                     MainAuthor =
                         DescriptiveDetail.OnixContributorList.Where(x => x.ContributorRole == OnixContributor.CONST_CONTRIB_ROLE_AUTHOR).FirstOrDefault();
@@ -464,19 +464,19 @@ namespace OnixData.Version3
 
         public bool HasMissingSalesRightsData()
         {
-            return (this.PublishingDetail != null) ? this.PublishingDetail.MissingSalesRightsDataFlag : false;
+            return (this.PublishingDetail is not null) ? this.PublishingDetail.MissingSalesRightsDataFlag : false;
         }
 
         public bool HasNoSalesRightsinUS()
         {
-            return (this.PublishingDetail != null) ? this.PublishingDetail.NoSalesRightsInUSFlag : false;
+            return (this.PublishingDetail is not null) ? this.PublishingDetail.NoSalesRightsInUSFlag : false;
         }
 
         public bool HasNotForSaleRights()
         {
             bool bNotForSalesRights = false;
 
-            if ((this.PublishingDetail != null) && (this.PublishingDetail.OnixSalesRightsList != null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
+            if ((this.PublishingDetail is not null) && (this.PublishingDetail.OnixSalesRightsList is not null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
             {
                 bNotForSalesRights = this.PublishingDetail.OnixSalesRightsList.Any(x => x.HasNotForSalesRights);
             }
@@ -486,14 +486,14 @@ namespace OnixData.Version3
 
         public bool HasOutsideUSCountrySalesRights()
         {
-            return (this.PublishingDetail != null) ? this.PublishingDetail.SalesRightsInNonUSCountryFlag : false;
+            return (this.PublishingDetail is not null) ? this.PublishingDetail.SalesRightsInNonUSCountryFlag : false;
         }
 
         public bool HasSalesRights()
         {
             bool bSalesRights = false;
 
-            if ((this.PublishingDetail != null) && (this.PublishingDetail.OnixSalesRightsList != null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
+            if ((this.PublishingDetail is not null) && (this.PublishingDetail.OnixSalesRightsList is not null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
             {
                 bSalesRights = this.PublishingDetail.OnixSalesRightsList.Any(x => x.HasSalesRights);
             }
@@ -505,11 +505,11 @@ namespace OnixData.Version3
         {
             bool bHasUSDPrice = false;
 
-            if (this.OnixProductSupplyList != null)
+            if (this.OnixProductSupplyList is not null)
             {
                 foreach (OnixProductSupply TmpProductSupply in this.OnixProductSupplyList)
                 {
-                    if (TmpProductSupply.SupplyDetail != null)
+                    if (TmpProductSupply.SupplyDetail is not null)
                     {
                         OnixPrice[] Prices = TmpProductSupply.SupplyDetail.OnixPriceList;
 
@@ -529,11 +529,11 @@ namespace OnixData.Version3
         {
             bool bHasSoughtPrice = false;
 
-            if (this.OnixProductSupplyList != null)
+            if (this.OnixProductSupplyList is not null)
             {
                 foreach (OnixProductSupply TmpProductSupply in this.OnixProductSupplyList)
                 {
-                    if (TmpProductSupply.SupplyDetail != null)
+                    if (TmpProductSupply.SupplyDetail is not null)
                     {
                         OnixPrice[] Prices = TmpProductSupply.SupplyDetail.OnixPriceList;
 
@@ -559,13 +559,13 @@ namespace OnixData.Version3
             int[] aSalesRightsColl = new int[] { OnixMarketTerritory.CONST_SR_TYPE_FOR_SALE_WITH_EXCL_RIGHTS,
                                                  OnixMarketTerritory.CONST_SR_TYPE_FOR_SALE_WITH_NONEXCL_RIGHTS };
 
-            if (this.OnixProductSupplyList != null)
+            if (this.OnixProductSupplyList is not null)
             {
                 foreach (OnixProductSupply TmpProductSupply in this.OnixProductSupplyList)
                 {
-                    if ((TmpProductSupply != null) &&
-                        (TmpProductSupply.Market != null) &&
-                        (TmpProductSupply.Market.Territory != null))
+                    if ((TmpProductSupply is not null) &&
+                        (TmpProductSupply.Market is not null) &&
+                        (TmpProductSupply.Market.Territory is not null))
                     {
                         List<string> TempCountriesIncluded = TmpProductSupply.Market.Territory.CountriesIncludedList;
 
@@ -578,20 +578,20 @@ namespace OnixData.Version3
             }
 
             // Viable usage?
-            if ((this.PublishingDetail != null) && (this.PublishingDetail.OnixSalesRightsList != null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
+            if ((this.PublishingDetail is not null) && (this.PublishingDetail.OnixSalesRightsList is not null) && (this.PublishingDetail.OnixSalesRightsList.Count() > 0))
             {
                 bHasUSRights = this.PublishingDetail.ForSaleRightsList.Contains("US");
             }              
               **/
 
-            bHasUSRights = (this.PublishingDetail != null) ? this.PublishingDetail.SalesRightsInUSFlag : false;
+            bHasUSRights = (this.PublishingDetail is not null) ? this.PublishingDetail.SalesRightsInUSFlag : false;
 
             return bHasUSRights;
         }
 
         public bool HasWorldSalesRights()
         {
-            return (this.PublishingDetail != null) ? this.PublishingDetail.SalesRightsAllWorldFlag : false;
+            return (this.PublishingDetail is not null) ? this.PublishingDetail.SalesRightsAllWorldFlag : false;
         }
 
         public string SeriesNumber
@@ -600,7 +600,7 @@ namespace OnixData.Version3
             {
                 string FoundSeriesNum = "";
 
-                if (DescriptiveDetail != null)
+                if (DescriptiveDetail is not null)
                     FoundSeriesNum = DescriptiveDetail.SeriesNumber;
 
                 return FoundSeriesNum;
@@ -613,7 +613,7 @@ namespace OnixData.Version3
             {
                 string FoundSeriesTitle = "";
 
-                if (DescriptiveDetail != null)
+                if (DescriptiveDetail is not null)
                     FoundSeriesTitle = DescriptiveDetail.SeriesTitle;
 
                 return FoundSeriesTitle;
@@ -628,14 +628,14 @@ namespace OnixData.Version3
 
                 OnixSupplyDetail TargetSupplyDetail = USDRetailSupplyDetail;
 
-                if ((TargetSupplyDetail != null) && (TargetSupplyDetail.OnixPriceList != null) && (TargetSupplyDetail.OnixPriceList.Length > 0))
+                if ((TargetSupplyDetail is not null) && (TargetSupplyDetail.OnixPriceList is not null) && (TargetSupplyDetail.OnixPriceList.Length > 0))
                 {
                     OnixPrice[] Prices = TargetSupplyDetail.OnixPriceList;
 
                     USDPrice =
                         Prices.Where(x => x.HasSoughtSupplyCostPriceType() && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                    if (USDPrice == null)
+                    if (USDPrice is null)
                         USDPrice = new OnixPrice();
                 }
 
@@ -647,17 +647,17 @@ namespace OnixData.Version3
         {
             get
             {
-                OnixPrice        USDPrice           = new OnixPrice();
+                OnixPrice USDPrice = new OnixPrice();
                 OnixSupplyDetail TargetSupplyDetail = USDRetailSupplyDetail;
 
-                if ((TargetSupplyDetail != null) && (TargetSupplyDetail.OnixPriceList != null) && (TargetSupplyDetail.OnixPriceList.Length > 0))
+                if ((TargetSupplyDetail is not null) && (TargetSupplyDetail.OnixPriceList is not null) && (TargetSupplyDetail.OnixPriceList.Length > 0))
                 {
                     OnixPrice[] Prices = TargetSupplyDetail.OnixPriceList;
 
                     USDPrice =
                         Prices.Where(x => (x.PriceType == OnixPrice.CONST_PRICE_TYPE_RRP_EXCL) && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                    if (USDPrice == null)
+                    if (USDPrice is null)
                         USDPrice = new OnixPrice();
                 }
 
@@ -671,9 +671,9 @@ namespace OnixData.Version3
             {
                 OnixPrice USDPrice = USDRetailPrice;
 
-                if ((USDPrice == null) || (USDPrice.PriceAmountNum <= 0))
+                if ((USDPrice is null) || (USDPrice.PriceAmountNum <= 0))
                 {
-                    if ((USDValidPriceList != null) || (USDValidPriceList.Count > 0))
+                    if ((USDValidPriceList is not null) || (USDValidPriceList.Count > 0))
                         USDPrice = USDValidPriceList.ElementAt(0);
                 }
 
@@ -687,16 +687,16 @@ namespace OnixData.Version3
             {
                 List<OnixPrice> USDPriceList = new List<OnixPrice>();
 
-                if (this.OnixProductSupplyList != null)
+                if (this.OnixProductSupplyList is not null)
                 {
                     foreach (OnixProductSupply TmpPrdSupply in this.OnixProductSupplyList)
                     {
                         var TmpSupplyDetail = TmpPrdSupply.SupplyDetail;
 
-                        if (TmpSupplyDetail != null)
+                        if (TmpSupplyDetail is not null)
                         {
-                            if ((TmpSupplyDetail != null) &&
-                                (TmpSupplyDetail.OnixPriceList != null) &&
+                            if ((TmpSupplyDetail is not null) &&
+                                (TmpSupplyDetail.OnixPriceList is not null) &&
                                 (TmpSupplyDetail.OnixPriceList.Length > 0))
                             {
                                 OnixPrice[] Prices = TmpSupplyDetail.OnixPriceList;
@@ -704,7 +704,7 @@ namespace OnixData.Version3
                                 var TmpPriceList =
                                     Prices.Where(x => x.HasSoughtPriceTypeCode() && (x.CurrencyCode == "USD")).ToArray();
 
-                                if ((TmpPriceList != null) && (TmpPriceList.Length > 0))
+                                if ((TmpPriceList is not null) && (TmpPriceList.Length > 0))
                                     USDPriceList.AddRange(TmpPriceList);
                             }
                         }
@@ -721,18 +721,18 @@ namespace OnixData.Version3
             {
                 OnixSupplyDetail SupplyDetail = new OnixSupplyDetail();
 
-                if (this.OnixProductSupplyList != null)
+                if (this.OnixProductSupplyList is not null)
                 {
                     foreach (OnixProductSupply TmpPrdSupply in this.OnixProductSupplyList)
                     {
-                        if (TmpPrdSupply.SupplyDetail != null)
+                        if (TmpPrdSupply.SupplyDetail is not null)
                         {
                             OnixPrice[] Prices = TmpPrdSupply.SupplyDetail.OnixPriceList;
 
                             OnixPrice USDPrice =
                                 Prices.Where(x => (x.PriceType == OnixPrice.CONST_PRICE_TYPE_RRP_EXCL) && (x.CurrencyCode == "USD")).FirstOrDefault();
 
-                            if ((USDPrice != null) && (USDPrice.PriceAmountNum > 0))
+                            if ((USDPrice is not null) && (USDPrice.PriceAmountNum > 0))
                             {
                                 SupplyDetail = TmpPrdSupply.SupplyDetail;
                                 break;
@@ -754,12 +754,12 @@ namespace OnixData.Version3
                 string TempUPC = this.upcField;
                 if (String.IsNullOrEmpty(TempUPC))
                 {
-                    if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                    if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                     {
                         OnixProductId UpcProductId =
                             ProductIdList.Where(x => x.ProductIDType == CONST_PRODUCT_TYPE_UPC).LastOrDefault();
 
-                        if ((UpcProductId != null) && !String.IsNullOrEmpty(UpcProductId.IDValue))
+                        if ((UpcProductId is not null) && !String.IsNullOrEmpty(UpcProductId.IDValue))
                             TempUPC = this.upcField = UpcProductId.IDValue;
                     }
                 }
@@ -782,9 +782,9 @@ namespace OnixData.Version3
             {
                 OnixProductId[] ProductIdList = null;
 
-                if (this.productIdentifierField != null)
+                if (this.productIdentifierField is not null)
                     ProductIdList = this.productIdentifierField;
-                else if (this.shortProductIdentifierField != null)
+                else if (this.shortProductIdentifierField is not null)
                     ProductIdList = this.shortProductIdentifierField;
                 else
                     ProductIdList = new OnixProductId[0];
@@ -799,9 +799,9 @@ namespace OnixData.Version3
             {
                 OnixBarcode[] BarcodeList = null;
 
-                if (this.barcodeField != null)
+                if (this.barcodeField is not null)
                     BarcodeList = this.barcodeField;
-                else if (this.shortBarcodeField != null)
+                else if (this.shortBarcodeField is not null)
                     BarcodeList = this.shortBarcodeField;
                 else
                     BarcodeList = new OnixBarcode[0];
@@ -816,9 +816,9 @@ namespace OnixData.Version3
             {
                 OnixProductSupply[] ProductSupplyList = null;
 
-                if (this.productSupplyField != null)
+                if (this.productSupplyField is not null)
                     ProductSupplyList = this.productSupplyField;
-                else if (this.shortProductSupplyField != null)
+                else if (this.shortProductSupplyField is not null)
                     ProductSupplyList = this.shortProductSupplyField;
                 else
                     ProductSupplyList = new OnixProductSupply[0];
@@ -900,13 +900,13 @@ namespace OnixData.Version3
             {
                 string ProductTitle = "";
 
-                if ((DescriptiveDetail != null) &&
-                    (DescriptiveDetail.TitleDetail != null) &&
+                if ((DescriptiveDetail is not null) &&
+                    (DescriptiveDetail.TitleDetail is not null) &&
                     (DescriptiveDetail.TitleDetail.TitleTypeNum == OnixTitleElement.CONST_TITLE_TYPE_PRODUCT))
                 {
                     OnixTitleDetail ProductTitleDetail = DescriptiveDetail.TitleDetail;
 
-                    if (ProductTitleDetail.FirstTitleElement != null)
+                    if (ProductTitleDetail.FirstTitleElement is not null)
                     {
                         ProductTitle = ProductTitleDetail.FirstTitleElement.Title;
 
@@ -1033,8 +1033,8 @@ namespace OnixData.Version3
         {
             OnixMeasure FoundMeasurement = new OnixMeasure();
 
-            if ((DescriptiveDetail != null) &&
-                (DescriptiveDetail.OnixMeasureList != null) &&
+            if ((DescriptiveDetail is not null) &&
+                (DescriptiveDetail.OnixMeasureList is not null) &&
                 (DescriptiveDetail.OnixMeasureList.Length > 0))
             {
                 OnixMeasure[] MeasureList = DescriptiveDetail.OnixMeasureList;
@@ -1042,14 +1042,14 @@ namespace OnixData.Version3
                 OnixMeasure MeasureType = null;
 
                 MeasureType = MeasureList.Where(x => (x.MeasureType == pnType) && !x.IsMetricUnitType()).LastOrDefault();
-                if (MeasureType != null)
+                if (MeasureType is not null)
                     FoundMeasurement = MeasureType;
-                
-                if ((MeasureType == null) || (MeasureType.Measurement == 0) || pbMetricPreferred)
+
+                if ((MeasureType is null) || (MeasureType.Measurement == 0) || pbMetricPreferred)
                 {
                     MeasureType = MeasureList.Where(x => (x.MeasureType == pnType) && x.IsMetricUnitType()).LastOrDefault();
 
-                    if (MeasureType != null)
+                    if (MeasureType is not null)
                         FoundMeasurement = MeasureType;
                 }
             }

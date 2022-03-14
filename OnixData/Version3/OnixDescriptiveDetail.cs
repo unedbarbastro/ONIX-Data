@@ -20,41 +20,41 @@ namespace OnixData.Version3
         {
             ProductComposition = -1;
 
-            ProductForm            = ProductPackaging = AudienceCode = "";
+            ProductForm = ProductPackaging = AudienceCode = "";
             ProductFormDescription = PrimaryContentType = CountryOfManufacture = "";
-            EpubType               = EpubTypeVersion = EpubFormatDescription = EpubTypeNote = "";
-            IllustrationsNote      = NumberOfIllustrations = "";
+            EpubType = EpubTypeVersion = EpubFormatDescription = EpubTypeNote = "";
+            IllustrationsNote = NumberOfIllustrations = "";
 
             productContentTypeField = shortProductContentTypeField = new string[0];
-            editionTypeField        = shortEditionTypeField        = new string[0];
-            productFormDetailField  = shortProductFormDetailField  = new string[0];
+            editionTypeField = shortEditionTypeField = new string[0];
+            productFormDetailField = shortProductFormDetailField = new string[0];
             epubTechProtectionField = shortEpubTechProtectionField = new string[0];
-            audienceField           = shortAudienceField           = new OnixAudience[0];
-            languageField           = shortLanguageField           = new OnixLanguage[0];
-            prodPartField           = shortProdPartField           = new OnixProductPart[0];
+            audienceField = shortAudienceField = new OnixAudience[0];
+            languageField = shortLanguageField = new OnixLanguage[0];
+            prodPartField = shortProdPartField = new OnixProductPart[0];
 
             epubUsageConstraintField = shortEpubUsageConstraintField = new OnixEpubUsageConstraint[0];
 
-            EditionNumber    = -1;
+            EditionNumber = -1;
             EditionStatement = "";
 
-            Measure       = new OnixMeasure[0];
-            Collection    = new OnixCollection[0];
-            TitleDetail   = new OnixTitleDetail();
-            Contributor   = new OnixContributor[0];
-            Extent        = new OnixExtent[0];
-            Subject       = new OnixSubject[0];
+            Measure = new OnixMeasure[0];
+            Collection = new OnixCollection[0];
+            TitleDetail = new OnixTitleDetail();
+            Contributor = new OnixContributor[0];
+            Extent = new OnixExtent[0];
+            Subject = new OnixSubject[0];
             AudienceRange = new OnixAudienceRange[0];
         }
 
-        private int      productCompositionField;
-        private string   productFormField;
-        private string   productFormDescriptionField;
-        private string   productPackagingField;
-        private int      editionNumberField;
-        private string   editionStatementField;
-        private string   audienceCodeField;
-        private string   countryOfManufactureField;
+        private int productCompositionField;
+        private string productFormField;
+        private string productFormDescriptionField;
+        private string productPackagingField;
+        private int editionNumberField;
+        private string editionStatementField;
+        private string audienceCodeField;
+        private string countryOfManufactureField;
 
         protected string epubTypeField;
         protected string epubTypeVersionField;
@@ -63,37 +63,37 @@ namespace OnixData.Version3
 
         protected string numOfIllustrationsField;
         protected string illustrationsNoteField;
-        private   string primaryContentTypeField;
+        private string primaryContentTypeField;
 
-        private string[]   productContentTypeField;
-        private string[]   shortProductContentTypeField;
-        private string[]   editionTypeField;
-        private string[]   shortEditionTypeField;
+        private string[] productContentTypeField;
+        private string[] shortProductContentTypeField;
+        private string[] editionTypeField;
+        private string[] shortEditionTypeField;
         protected string[] productFormDetailField;
         protected string[] shortProductFormDetailField;
         protected string[] epubTechProtectionField;
         protected string[] shortEpubTechProtectionField;
 
-        private OnixTitleDetail     titleDetailField;
+        private OnixTitleDetail titleDetailField;
 
-        private OnixAudience[]      audienceField;
-        private OnixAudience[]      shortAudienceField;
+        private OnixAudience[] audienceField;
+        private OnixAudience[] shortAudienceField;
         private OnixAudienceRange[] audienceRangeField;
         private OnixAudienceRange[] shortAudienceRangeField;
-        private OnixCollection[]    collectionField;
-        private OnixCollection[]    shortCollectionField;
-        private OnixContributor[]   contributorField;
-        private OnixContributor[]   shortContributorField;
-        private OnixExtent[]        extentField;
-        private OnixExtent[]        shortExtentField;
-        private OnixLanguage[]      languageField;
-        private OnixLanguage[]      shortLanguageField;
-        private OnixMeasure[]       measureField;
-        private OnixMeasure[]       shortMeasureField;
-        private OnixProductPart[]   prodPartField;
-        private OnixProductPart[]   shortProdPartField;
-        private OnixSubject[]       subjectField;
-        private OnixSubject[]       shortSubjectField;
+        private OnixCollection[] collectionField;
+        private OnixCollection[] shortCollectionField;
+        private OnixContributor[] contributorField;
+        private OnixContributor[] shortContributorField;
+        private OnixExtent[] extentField;
+        private OnixExtent[] shortExtentField;
+        private OnixLanguage[] languageField;
+        private OnixLanguage[] shortLanguageField;
+        private OnixMeasure[] measureField;
+        private OnixMeasure[] shortMeasureField;
+        private OnixProductPart[] prodPartField;
+        private OnixProductPart[] shortProdPartField;
+        private OnixSubject[] subjectField;
+        private OnixSubject[] shortSubjectField;
 
         public OnixEpubUsageConstraint[] epubUsageConstraintField;
         public OnixEpubUsageConstraint[] shortEpubUsageConstraintField;
@@ -106,10 +106,10 @@ namespace OnixData.Version3
             {
                 List<string> AllContentTypes = new List<string>();
 
-                if (PrimaryContentType != null)
+                if (PrimaryContentType is not null)
                     AllContentTypes.Add(PrimaryContentType);
 
-                if (OnixProductContentTypeList != null)
+                if (OnixProductContentTypeList is not null)
                     AllContentTypes.AddRange(OnixProductContentTypeList);
 
                 return AllContentTypes.ToArray();
@@ -122,9 +122,9 @@ namespace OnixData.Version3
             {
                 string[] ProductContentTypes = null;
 
-                if (this.productContentTypeField != null)
+                if (this.productContentTypeField is not null)
                     ProductContentTypes = this.productContentTypeField;
-                else if (this.shortProductContentTypeField != null)
+                else if (this.shortProductContentTypeField is not null)
                     ProductContentTypes = this.shortProductContentTypeField;
                 else
                     ProductContentTypes = new string[0];
@@ -139,9 +139,9 @@ namespace OnixData.Version3
             {
                 string[] EditionTypes = null;
 
-                if (this.editionTypeField != null)
+                if (this.editionTypeField is not null)
                     EditionTypes = this.editionTypeField;
-                else if (this.shortEditionTypeField != null)
+                else if (this.shortEditionTypeField is not null)
                     EditionTypes = this.shortEditionTypeField;
                 else
                     EditionTypes = new string[0];
@@ -156,9 +156,9 @@ namespace OnixData.Version3
             {
                 string[] TechProtections = null;
 
-                if (this.epubTechProtectionField != null)
+                if (this.epubTechProtectionField is not null)
                     TechProtections = this.epubTechProtectionField;
-                else if (this.shortEpubTechProtectionField != null)
+                else if (this.shortEpubTechProtectionField is not null)
                     TechProtections = this.shortEpubTechProtectionField;
                 else
                     TechProtections = new string[0];
@@ -174,15 +174,15 @@ namespace OnixData.Version3
                 string[] AudCodes = null;
 
                 OnixAudience[] AudienceList = audienceField;
-                if ((AudienceList == null) || (AudienceList.Length <= 0))
+                if ((AudienceList is null) || (AudienceList.Length <= 0))
                     AudienceList = shortAudienceField;
 
-                if ((AudienceList != null) && (AudienceList.Length > 0))
+                if ((AudienceList is not null) && (AudienceList.Length > 0))
                 {
                     OnixAudience[] OnixAudCodeList =
                         AudienceList.Where(x => x.AudienceCodeType == OnixAudience.CONST_AUD_TYPE_ONIX).ToArray();
 
-                    if ((OnixAudCodeList != null) && (OnixAudCodeList.Length > 0))
+                    if ((OnixAudCodeList is not null) && (OnixAudCodeList.Length > 0))
                     {
                         AudCodes = new string[OnixAudCodeList.Length];
 
@@ -207,9 +207,9 @@ namespace OnixData.Version3
             {
                 OnixAudienceRange[] AudRanges = null;
 
-                if (this.audienceRangeField != null)
+                if (this.audienceRangeField is not null)
                     AudRanges = this.audienceRangeField;
-                else if (this.shortAudienceRangeField != null)
+                else if (this.shortAudienceRangeField is not null)
                     AudRanges = this.shortAudienceRangeField;
                 else
                     AudRanges = new OnixAudienceRange[0];
@@ -224,9 +224,9 @@ namespace OnixData.Version3
             {
                 OnixCollection[] Collections = null;
 
-                if (this.collectionField != null)
+                if (this.collectionField is not null)
                     Collections = this.collectionField;
-                else if (this.shortCollectionField != null)
+                else if (this.shortCollectionField is not null)
                     Collections = this.shortCollectionField;
                 else
                     Collections = new OnixCollection[0];
@@ -241,9 +241,9 @@ namespace OnixData.Version3
             {
                 OnixContributor[] Contributors = null;
 
-                if (this.contributorField != null)
+                if (this.contributorField is not null)
                     Contributors = this.contributorField;
-                else if (this.shortContributorField != null)
+                else if (this.shortContributorField is not null)
                     Contributors = this.shortContributorField;
                 else
                     Contributors = new OnixContributor[0];
@@ -258,9 +258,9 @@ namespace OnixData.Version3
             {
                 OnixEpubUsageConstraint[] Constraints = null;
 
-                if (this.epubUsageConstraintField != null)
+                if (this.epubUsageConstraintField is not null)
                     Constraints = this.epubUsageConstraintField;
-                else if (this.shortEpubUsageConstraintField != null)
+                else if (this.shortEpubUsageConstraintField is not null)
                     Constraints = this.shortEpubUsageConstraintField;
                 else
                     Constraints = new OnixEpubUsageConstraint[0];
@@ -275,9 +275,9 @@ namespace OnixData.Version3
             {
                 OnixExtent[] Extents = null;
 
-                if (this.extentField != null)
+                if (this.extentField is not null)
                     Extents = this.extentField;
-                else if (this.shortExtentField != null)
+                else if (this.shortExtentField is not null)
                     Extents = this.shortExtentField;
                 else
                     Extents = new OnixExtent[0];
@@ -292,9 +292,9 @@ namespace OnixData.Version3
             {
                 OnixLanguage[] Languages = null;
 
-                if (this.languageField != null)
+                if (this.languageField is not null)
                     Languages = this.languageField;
-                else if (this.shortLanguageField != null)
+                else if (this.shortLanguageField is not null)
                     Languages = this.shortLanguageField;
                 else
                     Languages = new OnixLanguage[0];
@@ -309,12 +309,12 @@ namespace OnixData.Version3
             {
                 OnixSubject[] MainSubjects = new OnixSubject[0];
 
-                if ((OnixSubjectList != null) && (OnixSubjectList.Length > 0))
+                if ((OnixSubjectList is not null) && (OnixSubjectList.Length > 0))
                 {
                     var MainSubjList =
                         OnixSubjectList.Where(x => x.IsMainSubject()).ToList();
 
-                    if (MainSubjList != null)
+                    if (MainSubjList is not null)
                         MainSubjects = MainSubjList.ToArray();
                 }
 
@@ -328,9 +328,9 @@ namespace OnixData.Version3
             {
                 OnixMeasure[] Measures = null;
 
-                if (this.measureField != null)
+                if (this.measureField is not null)
                     Measures = this.measureField;
-                else if (this.shortMeasureField != null)
+                else if (this.shortMeasureField is not null)
                     Measures = this.shortMeasureField;
                 else
                     Measures = new OnixMeasure[0];
@@ -345,9 +345,9 @@ namespace OnixData.Version3
             {
                 string[] ProductFormDetailList = null;
 
-                if (this.productFormDetailField != null)
+                if (this.productFormDetailField is not null)
                     ProductFormDetailList = this.productFormDetailField;
-                else if (this.shortProductFormDetailField != null)
+                else if (this.shortProductFormDetailField is not null)
                     ProductFormDetailList = this.shortProductFormDetailField;
                 else
                     ProductFormDetailList = new string[0];
@@ -362,9 +362,9 @@ namespace OnixData.Version3
             {
                 OnixProductPart[] ProductParts = null;
 
-                if (this.prodPartField != null)
+                if (this.prodPartField is not null)
                     ProductParts = this.prodPartField;
-                else if (this.shortProdPartField != null)
+                else if (this.shortProdPartField is not null)
                     ProductParts = this.shortProdPartField;
                 else
                     ProductParts = new OnixProductPart[0];
@@ -379,9 +379,9 @@ namespace OnixData.Version3
             {
                 OnixSubject[] Subjects = null;
 
-                if (this.subjectField != null)
+                if (this.subjectField is not null)
                     Subjects = this.subjectField;
-                else if (this.shortSubjectField != null)
+                else if (this.shortSubjectField is not null)
                     Subjects = this.shortSubjectField;
                 else
                     Subjects = new OnixSubject[0];
@@ -401,10 +401,10 @@ namespace OnixData.Version3
                 string sAudAgeFrom = "";
 
                 OnixAudienceRange[] AudRangeList = this.OnixAudRangeList;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixAudienceRange TempAudRange in AudRangeList)
                     {
@@ -427,10 +427,10 @@ namespace OnixData.Version3
                 string sAudAgeTo = "";
 
                 OnixAudienceRange[] AudRangeList = this.OnixAudRangeList;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixAudienceRange TempAudRange in AudRangeList)
                     {
@@ -453,10 +453,10 @@ namespace OnixData.Version3
                 string sAudGradeFrom = "";
 
                 OnixAudienceRange[] AudRangeList = this.OnixAudRangeList;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixAudienceRange TempAudRange in AudRangeList)
                     {
@@ -478,10 +478,10 @@ namespace OnixData.Version3
                 string sAudGradeTo = "";
 
                 OnixAudienceRange[] AudRangeList = this.OnixAudRangeList;
-                if ((AudRangeList == null) || (AudRangeList.Length <= 0))
+                if ((AudRangeList is null) || (AudRangeList.Length <= 0))
                     AudRangeList = shortAudienceRangeField;
 
-                if ((AudRangeList != null) && (AudRangeList.Length > 0))
+                if ((AudRangeList is not null) && (AudRangeList.Length > 0))
                 {
                     foreach (OnixAudienceRange TempAudRange in AudRangeList)
                     {
@@ -504,12 +504,12 @@ namespace OnixData.Version3
 
                 string sLangOfText = "";
 
-                if ((LangList != null) && (LangList.Length > 0))
+                if ((LangList is not null) && (LangList.Length > 0))
                 {
                     OnixLanguage LangOfText =
                         LangList.Where(x => x.IsLanguageOfText()).LastOrDefault();
 
-                    if ((LangOfText != null) && !String.IsNullOrEmpty(LangOfText.LanguageCode))
+                    if ((LangOfText is not null) && !String.IsNullOrEmpty(LangOfText.LanguageCode))
                         sLangOfText = LangOfText.LanguageCode;
                 }
 
@@ -523,7 +523,7 @@ namespace OnixData.Version3
             {
                 int nPageNum = 0;
 
-                if (this.OnixExtentList != null)
+                if (this.OnixExtentList is not null)
                 {
                     OnixExtent[] PageCountExtents =
                         this.OnixExtentList
@@ -531,20 +531,20 @@ namespace OnixData.Version3
                             .OrderBy(x => x.ExtentType)
                             .ToArray();
 
-                    if ((PageCountExtents != null) && (PageCountExtents.Length > 0))
+                    if ((PageCountExtents is not null) && (PageCountExtents.Length > 0))
                     {
                         OnixExtent PageAmtTotalExtent =
                             PageCountExtents
                             .Where(x => x.ExtentType == OnixExtent.CONST_EXT_TYPE_TOTAL_PG_CT)
                             .FirstOrDefault();
 
-                        if (PageAmtTotalExtent != null)
+                        if (PageAmtTotalExtent is not null)
                             nPageNum = PageAmtTotalExtent.ExtentValueNum;
                         else
                         {
                             OnixExtent PageAmtFirstExtent = PageCountExtents[0];
 
-                            if (PageAmtFirstExtent != null)
+                            if (PageAmtFirstExtent is not null)
                                 nPageNum = PageAmtFirstExtent.ExtentValueNum;
                         }
                     }
@@ -562,30 +562,30 @@ namespace OnixData.Version3
 
                 string sSeriesNum = "";
 
-                if ((CollList != null) && (CollList.Length > 0))
+                if ((CollList is not null) && (CollList.Length > 0))
                 {
                     OnixCollection SeriesCollection =
                         CollList.Where(x => x.IsSeriesType()).OrderBy(x => x.CollectionTypeNum).FirstOrDefault();
 
-                    if ((SeriesCollection == null) || (SeriesCollection.CollectionTypeNum < 0))
+                    if ((SeriesCollection is null) || (SeriesCollection.CollectionTypeNum < 0))
                         SeriesCollection = CollList.Where(x => x.IsGeneralType()).FirstOrDefault();
 
-                    if (SeriesCollection != null)
+                    if (SeriesCollection is not null)
                     {
                         sSeriesNum = SeriesCollection.SeriesSequence;
                     }
 
-                    if (String.IsNullOrEmpty(sSeriesNum) && (SeriesCollection.OnixTitleDetailList != null) && (SeriesCollection.OnixTitleDetailList.Length > 0))
+                    if (String.IsNullOrEmpty(sSeriesNum) && (SeriesCollection.OnixTitleDetailList is not null) && (SeriesCollection.OnixTitleDetailList.Length > 0))
                     {
                         var TitleDetailFound =
                             SeriesCollection.OnixTitleDetailList.Where(x => x.HasDistinctiveTitle()).FirstOrDefault();
 
-                        if (TitleDetailFound != null)
+                        if (TitleDetailFound is not null)
                         {
-                            var TitleElement = 
+                            var TitleElement =
                                 TitleDetailFound.OnixTitleElementList.Where(x => !String.IsNullOrEmpty(x.PartNumber)).FirstOrDefault();
 
-                            if (TitleElement != null)
+                            if (TitleElement is not null)
                                 sSeriesNum = TitleElement.PartNumber;
                         }
                     }
@@ -593,17 +593,17 @@ namespace OnixData.Version3
 
                 if (String.IsNullOrEmpty(sSeriesNum))
                 {
-                    if ((this.TitleDetail != null) &&
+                    if ((this.TitleDetail is not null) &&
                         (this.TitleDetail.TitleTypeNum == OnixTitleElement.CONST_TITLE_TYPE_PRODUCT))
                     {
                         var MainTitleDetail = this.TitleDetail;
 
-                        if (MainTitleDetail != null)
+                        if (MainTitleDetail is not null)
                         {
                             var TitleElement =
                                 MainTitleDetail.OnixTitleElementList.Where(x => !String.IsNullOrEmpty(x.PartNumber)).FirstOrDefault();
 
-                            if (TitleElement != null)
+                            if (TitleElement is not null)
                                 sSeriesNum = TitleElement.PartNumber;
                         }
                     }
@@ -621,15 +621,15 @@ namespace OnixData.Version3
 
                 string sSeriesTitle = "";
 
-                if ((CollList != null) && (CollList.Length > 0))
+                if ((CollList is not null) && (CollList.Length > 0))
                 {
                     OnixCollection SeriesCollection =
                         CollList.Where(x => x.IsSeriesType()).OrderBy(x => x.CollectionTypeNum).FirstOrDefault();
 
-                    if ((SeriesCollection == null) || (SeriesCollection.CollectionTypeNum < 0))
+                    if ((SeriesCollection is null) || (SeriesCollection.CollectionTypeNum < 0))
                         SeriesCollection = CollList.Where(x => x.IsGeneralType()).FirstOrDefault();
 
-                    if (SeriesCollection != null)
+                    if (SeriesCollection is not null)
                     {
                         var SeriesTitleDetail =
                             SeriesCollection.OnixTitleDetailList
@@ -637,7 +637,7 @@ namespace OnixData.Version3
                                             .Where(x => !String.IsNullOrEmpty(x.AssembledSeriesName))
                                             .FirstOrDefault();
 
-                        if ((SeriesTitleDetail != null) && !String.IsNullOrEmpty(SeriesTitleDetail.AssembledSeriesName))
+                        if ((SeriesTitleDetail is not null) && !String.IsNullOrEmpty(SeriesTitleDetail.AssembledSeriesName))
                         {
                             sSeriesTitle = SeriesTitleDetail.AssembledSeriesName;
                         }
@@ -810,7 +810,7 @@ namespace OnixData.Version3
             {
                 int FoundSeriesNum = 0;
 
-                if ((Series != null) && (Series.Length > 0))
+                if ((Series is not null) && (Series.Length > 0))
                     FoundSeriesNum = Series[0].NumberWithinSeries;
 
                 return FoundSeriesNum;

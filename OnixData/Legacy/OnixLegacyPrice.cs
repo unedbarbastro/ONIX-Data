@@ -90,7 +90,7 @@ namespace OnixData.Legacy
 
         public bool HasViablePubDiscountCode()
         {
-            return (OnixFirstViableDiscountCoded != null);
+            return (OnixFirstViableDiscountCoded is not null);
         }
 
         public OnixLegacyDiscountCoded OnixFirstViableDiscountCoded
@@ -99,12 +99,12 @@ namespace OnixData.Legacy
             {
                 OnixLegacyDiscountCoded ViableDiscountCoded = null;
 
-                if ((this.OnixDiscountCodedList != null) && (this.OnixDiscountCodedList.Length > 0))
+                if ((this.OnixDiscountCodedList is not null) && (this.OnixDiscountCodedList.Length > 0))
                 {
                     OnixLegacyDiscountCoded DiscountCodedCandidate =
                         OnixDiscountCodedList.Where(x => (x.DiscountCodeType == CONST_PUB_DISC_CD_TYPE_PTY) || (x.DiscountCodeType == CONST_PUB_DISC_CD_TYPE_PTY_2)).FirstOrDefault();
 
-                    if ((DiscountCodedCandidate != null) && !String.IsNullOrEmpty(DiscountCodedCandidate.DiscountCode))
+                    if ((DiscountCodedCandidate is not null) && !String.IsNullOrEmpty(DiscountCodedCandidate.DiscountCode))
                         ViableDiscountCoded = DiscountCodedCandidate;
                 }
 
@@ -118,9 +118,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyDiscountCoded[] DiscountCodedList = null;
 
-                if (discountCodedField != null)
+                if (discountCodedField is not null)
                     DiscountCodedList = this.discountCodedField;
-                else if (shortDiscountCodedField != null)
+                else if (shortDiscountCodedField is not null)
                     DiscountCodedList = this.shortDiscountCodedField;
                 else
                     DiscountCodedList = new OnixLegacyDiscountCoded[0];

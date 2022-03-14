@@ -31,13 +31,13 @@ namespace OnixData.Version3.Related
                 OnixProductId[] ProductIdList = OnixProductIdList;
 
                 string sEAN = "";
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixProductId EanProductId =
                         ProductIdList.Where(x => (x.ProductIDType == OnixProductId.CONST_PRODUCT_TYPE_EAN) ||
                                                  (x.ProductIDType == OnixProductId.CONST_PRODUCT_TYPE_ISBN13)).FirstOrDefault();
 
-                    if ((EanProductId != null) && !String.IsNullOrEmpty(EanProductId.IDValue))
+                    if ((EanProductId is not null) && !String.IsNullOrEmpty(EanProductId.IDValue))
                         sEAN = EanProductId.IDValue;
                 }
 
@@ -52,12 +52,12 @@ namespace OnixData.Version3.Related
                 OnixProductId[] ProductIdList = OnixProductIdList;
 
                 string sISBN = "";
-                if ((ProductIdList != null) && (ProductIdList.Length > 0))
+                if ((ProductIdList is not null) && (ProductIdList.Length > 0))
                 {
                     OnixProductId EanProductId =
                         ProductIdList.Where(x => (x.ProductIDType == OnixProductId.CONST_PRODUCT_TYPE_ISBN)).FirstOrDefault();
 
-                    if ((EanProductId != null) && !String.IsNullOrEmpty(EanProductId.IDValue))
+                    if ((EanProductId is not null) && !String.IsNullOrEmpty(EanProductId.IDValue))
                         sISBN = EanProductId.IDValue;
                 }
 
@@ -75,9 +75,9 @@ namespace OnixData.Version3.Related
             {
                 OnixProductId[] ProductIds = null;
 
-                if (this.productIdentifierField != null)
+                if (this.productIdentifierField is not null)
                     ProductIds = this.productIdentifierField;
-                else if (this.shortProductIdentifierField != null)
+                else if (this.shortProductIdentifierField is not null)
                     ProductIds = this.shortProductIdentifierField;
                 else
                     ProductIds = new OnixProductId[0];

@@ -49,9 +49,9 @@ namespace OnixData.Legacy
             {
                 string[] asOnixRightsCountryList = new string[0];
 
-                if ((this.shortRightsCountryField != null) && (this.shortRightsCountryField.Length > 0))
+                if ((this.shortRightsCountryField is not null) && (this.shortRightsCountryField.Length > 0))
                     asOnixRightsCountryList = this.shortRightsCountryField;
-                else if ((this.rightsCountryField != null) && (this.rightsCountryField.Length > 0))
+                else if ((this.rightsCountryField is not null) && (this.rightsCountryField.Length > 0))
                     asOnixRightsCountryList = this.rightsCountryField;
 
                 return asOnixRightsCountryList;
@@ -64,9 +64,9 @@ namespace OnixData.Legacy
             {
                 string[] asOnixRightsTerritoryList = new string[0];
 
-                if ((this.shortRightsTerritoryField != null) && (this.shortRightsTerritoryField.Length > 0))
+                if ((this.shortRightsTerritoryField is not null) && (this.shortRightsTerritoryField.Length > 0))
                     asOnixRightsTerritoryList = this.shortRightsTerritoryField;
-                else if ((this.rightsTerritoryField != null) && (this.rightsTerritoryField.Length > 0))
+                else if ((this.rightsTerritoryField is not null) && (this.rightsTerritoryField.Length > 0))
                     asOnixRightsTerritoryList = this.rightsTerritoryField;
 
                 return asOnixRightsTerritoryList;

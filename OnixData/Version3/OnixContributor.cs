@@ -110,9 +110,9 @@ namespace OnixData.Version3
             {
                 OnixAlternateName[] AltNameList = new OnixAlternateName[0];
 
-                if (this.altNameField != null)
+                if (this.altNameField is not null)
                     AltNameList = this.altNameField;
-                else if (this.shortAltNameField != null)
+                else if (this.shortAltNameField is not null)
                     AltNameList = this.shortAltNameField;
                 else
                     AltNameList = new OnixAlternateName[0];

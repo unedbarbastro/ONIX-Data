@@ -42,9 +42,9 @@ namespace OnixData.Version3.Supply
             {
                 OnixSupplierId[] SupplierIdList = null;
 
-                if (this.supplierIdField != null)
+                if (this.supplierIdField is not null)
                     SupplierIdList = this.supplierIdField;
-                else if (this.shortSupplierIdField != null)
+                else if (this.shortSupplierIdField is not null)
                     SupplierIdList = this.shortSupplierIdField;
                 else
                     SupplierIdList = new OnixSupplierId[0];

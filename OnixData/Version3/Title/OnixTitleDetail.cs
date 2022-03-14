@@ -35,9 +35,9 @@ namespace OnixData.Version3.Title
             {
                 OnixTitleElement[] TitleElemList = null;
 
-                if (this.titleElementField != null)
+                if (this.titleElementField is not null)
                     TitleElemList = this.titleElementField;
-                else if (this.shortTitleElementField != null)
+                else if (this.shortTitleElementField is not null)
                     TitleElemList = this.shortTitleElementField;
                 else
                     TitleElemList = new OnixTitleElement[0];
@@ -59,7 +59,7 @@ namespace OnixData.Version3.Title
                 var SeriesNameParts =
                     this.OnixTitleElementList.Where(x => x.IsQualifiedSeriesType()).OrderBy(x => x.TitleElementLevel);
 
-                if (SeriesNameParts != null)
+                if (SeriesNameParts is not null)
                 {
                     foreach (var TitleElement in SeriesNameParts)
                     {
@@ -75,7 +75,7 @@ namespace OnixData.Version3.Title
                     var MasterBrandTitle =
                         this.OnixTitleElementList.Where(x => x.IsMasterBrandType()).FirstOrDefault();
 
-                    if ((MasterBrandTitle != null) && !String.IsNullOrEmpty(MasterBrandTitle.Title))
+                    if ((MasterBrandTitle is not null) && !String.IsNullOrEmpty(MasterBrandTitle.Title))
                     {
                         SeriesNameBuilder.Append(MasterBrandTitle.Title);
                     }
@@ -91,12 +91,12 @@ namespace OnixData.Version3.Title
             {
                 OnixTitleElement CollTitleElement = null;
 
-                if ((OnixTitleElementList != null) && (OnixTitleElementList.Length > 0))
+                if ((OnixTitleElementList is not null) && (OnixTitleElementList.Length > 0))
                 {
                     var FoundElement =
                         OnixTitleElementList.Where(x => x.IsElementLevelCollection()).FirstOrDefault();
 
-                    if (FoundElement != null)
+                    if (FoundElement is not null)
                         CollTitleElement = FoundElement;
                 }
 
@@ -110,12 +110,12 @@ namespace OnixData.Version3.Title
             {
                 OnixTitleElement PrdTitleElement = null;
 
-                if ((OnixTitleElementList != null) && (OnixTitleElementList.Length > 0))
+                if ((OnixTitleElementList is not null) && (OnixTitleElementList.Length > 0))
                 {
                     var FoundElement =
                         OnixTitleElementList.Where(x => x.IsElementLevelProduct()).FirstOrDefault();
 
-                    if (FoundElement != null)
+                    if (FoundElement is not null)
                         PrdTitleElement = FoundElement;
                 }
 
@@ -129,7 +129,7 @@ namespace OnixData.Version3.Title
             {
                 OnixTitleElement FirstElement = null;
 
-                if ((OnixTitleElementList != null) && (OnixTitleElementList.Length > 0))
+                if ((OnixTitleElementList is not null) && (OnixTitleElementList.Length > 0))
                     FirstElement = OnixTitleElementList[0];
 
                 return FirstElement;
@@ -142,7 +142,7 @@ namespace OnixData.Version3.Title
             {
                 string sFullName = "";
 
-                if ((FirstTitleElement != null) && !String.IsNullOrEmpty(FirstTitleElement.Title))
+                if ((FirstTitleElement is not null) && !String.IsNullOrEmpty(FirstTitleElement.Title))
                     sFullName = FirstTitleElement.Title;
 
                 return sFullName;
@@ -179,7 +179,7 @@ namespace OnixData.Version3.Title
         {
             bool bIsCollName = false;
 
-            if (FirstTitleElement != null)
+            if (FirstTitleElement is not null)
                 bIsCollName = (FirstTitleElement.TitleElementLevel == OnixTitleElement.CONST_TITLE_TYPE_COLLECTION);
 
             return bIsCollName;
@@ -189,7 +189,7 @@ namespace OnixData.Version3.Title
         {
             bool bIsProdName = false;
 
-            if (FirstTitleElement != null)
+            if (FirstTitleElement is not null)
                 bIsProdName = (FirstTitleElement.TitleElementLevel == OnixTitleElement.CONST_TITLE_TYPE_PRODUCT);
 
             return bIsProdName;
@@ -199,7 +199,7 @@ namespace OnixData.Version3.Title
         {
             bool bIsSubCollName = false;
 
-            if (FirstTitleElement != null)
+            if (FirstTitleElement is not null)
                 bIsSubCollName = (FirstTitleElement.TitleElementLevel == OnixTitleElement.CONST_TITLE_TYPE_SUB_COLL);
 
             return bIsSubCollName;
@@ -209,7 +209,7 @@ namespace OnixData.Version3.Title
         {
             bool bIsSubItemName = false;
 
-            if (FirstTitleElement != null)
+            if (FirstTitleElement is not null)
                 bIsSubItemName = (FirstTitleElement.TitleElementLevel == OnixTitleElement.CONST_TITLE_TYPE_SUB_ITEM);
 
             return bIsSubItemName;
@@ -221,7 +221,7 @@ namespace OnixData.Version3.Title
             {
                 string sPrefix = "";
 
-                if ((FirstTitleElement != null) && !String.IsNullOrEmpty(FirstTitleElement.TitlePrefix))
+                if ((FirstTitleElement is not null) && !String.IsNullOrEmpty(FirstTitleElement.TitlePrefix))
                     sPrefix = FirstTitleElement.TitlePrefix;
 
                 return sPrefix;
@@ -234,7 +234,7 @@ namespace OnixData.Version3.Title
             {
                 string sTitleWithoutPrefix = "";
 
-                if ((FirstTitleElement != null) && !String.IsNullOrEmpty(FirstTitleElement.TitleWithoutPrefix))
+                if ((FirstTitleElement is not null) && !String.IsNullOrEmpty(FirstTitleElement.TitleWithoutPrefix))
                     sTitleWithoutPrefix = FirstTitleElement.TitleWithoutPrefix;
 
                 return sTitleWithoutPrefix;

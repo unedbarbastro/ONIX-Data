@@ -236,7 +236,7 @@ namespace OnixData.Extensions
 
         private static void ReplaceTechEncodings(StringBuilder LegacyOnixFileText)
         {
-            if ((LegacyOnixFileText != null) && (LegacyOnixFileText.Length > 0))
+            if ((LegacyOnixFileText is not null) && (LegacyOnixFileText.Length > 0))
             {
                 LegacyOnixFileText.Replace("&acd;", "&#x0223F;"); // <!--ac current -->
                 LegacyOnixFileText.Replace("&aleph;", "&#x02135;"); // <!--/aleph aleph, Hebrew -->

@@ -50,9 +50,9 @@ namespace OnixData.Version3.Epub
             {
                 OnixEpubUsageLimit[] Limits = new OnixEpubUsageLimit[0];
 
-                if (this.usageLimitField != null)
+                if (this.usageLimitField is not null)
                     Limits = this.usageLimitField;
-                else if (this.shortUsageLimitField != null)
+                else if (this.shortUsageLimitField is not null)
                     Limits = this.shortUsageLimitField;
                 else
                     Limits = new OnixEpubUsageLimit[0];

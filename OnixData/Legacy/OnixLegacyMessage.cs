@@ -37,9 +37,9 @@ namespace OnixData.Legacy
             {
                 OnixLegacyProduct[] productList = null;
 
-                if (Product != null)
+                if (Product is not null)
                     productList = Product;
-                else if (product != null)
+                else if (product is not null)
                     productList = product;
                 else
                     productList = new OnixLegacyProduct[0];

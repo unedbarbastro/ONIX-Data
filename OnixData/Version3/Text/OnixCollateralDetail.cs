@@ -24,9 +24,9 @@
             {
                 OnixTextContent[] TextContents = null;
 
-                if (this.textContentField != null)
+                if (this.textContentField is not null)
                     TextContents = this.textContentField;
-                else if (this.shortTextContentField != null)
+                else if (this.shortTextContentField is not null)
                     TextContents = this.shortTextContentField;
                 else
                     TextContents = new OnixTextContent[0];
@@ -41,9 +41,9 @@
             {
                 OnixContentDate[] ContentDates = null;
 
-                if (this.contentDateField != null)
+                if (this.contentDateField is not null)
                     ContentDates = this.contentDateField;
-                else if (this.shortContentDateField != null)
+                else if (this.shortContentDateField is not null)
                     ContentDates = this.shortContentDateField;
                 else
                     ContentDates = new OnixContentDate[0];
@@ -58,9 +58,9 @@
             {
                 OnixSupportingResource[] onixSupportingResources = null;
 
-                if (this.supportingResourceField != null)
+                if (this.supportingResourceField is not null)
                     onixSupportingResources = this.supportingResourceField;
-                else if (this.shortContentDateField != null)
+                else if (this.shortContentDateField is not null)
                     onixSupportingResources = this.shortSupportingResourceField;
                 else
                     onixSupportingResources = new OnixSupportingResource[0];

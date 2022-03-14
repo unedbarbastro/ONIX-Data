@@ -46,9 +46,9 @@ namespace OnixData.Version3.Supply
             {
                 OnixPrice[] Prices = null;
 
-                if (this.priceField != null)
+                if (this.priceField is not null)
                     Prices = this.priceField;
-                else if (this.shortPriceField != null)
+                else if (this.shortPriceField is not null)
                     Prices = this.shortPriceField;
                 else
                     Prices = new OnixPrice[0];
@@ -63,9 +63,9 @@ namespace OnixData.Version3.Supply
             {
                 OnixReturnsConditions[] ReturnsConditions = null;
 
-                if (this.returnsConditionsField != null)
+                if (this.returnsConditionsField is not null)
                     ReturnsConditions = this.returnsConditionsField;
-                else if (this.shortReturnsConditionsField != null)
+                else if (this.shortReturnsConditionsField is not null)
                     ReturnsConditions = this.shortReturnsConditionsField;
                 else
                     ReturnsConditions = new OnixReturnsConditions[0];
@@ -80,9 +80,9 @@ namespace OnixData.Version3.Supply
             {
                 OnixSupplier[] Suppliers = null;
 
-                if (this.supplierField != null)
+                if (this.supplierField is not null)
                     Suppliers = this.supplierField;
-                else if (this.shortSupplierField != null)
+                else if (this.shortSupplierField is not null)
                     Suppliers = this.shortSupplierField;
                 else
                     Suppliers = new OnixSupplier[0];
@@ -97,9 +97,9 @@ namespace OnixData.Version3.Supply
             {
                 OnixSupplyDate[] SupplyDates = null;
 
-                if (this.supplyDateField != null)
+                if (this.supplyDateField is not null)
                     SupplyDates = this.supplyDateField;
-                else if (this.shortSupplyDateField != null)
+                else if (this.shortSupplyDateField is not null)
                     SupplyDates = this.shortSupplyDateField;
                 else
                     SupplyDates = new OnixSupplyDate[0];
@@ -116,7 +116,7 @@ namespace OnixData.Version3.Supply
         {
             bool bHasUSDPrice = false;
 
-            if ((this.OnixPriceList != null) && (this.OnixPriceList.Length > 0))
+            if ((this.OnixPriceList is not null) && (this.OnixPriceList.Length > 0))
             {
                 bHasUSDPrice =
                     this.OnixPriceList.Any(x => (x.PriceType == OnixPrice.CONST_PRICE_TYPE_RRP_EXCL) && (x.CurrencyCode == "USD"));
@@ -129,7 +129,7 @@ namespace OnixData.Version3.Supply
         {
             bool bHasRetCodeBisac = false;
 
-            if ((this.OnixReturnsConditionsList != null) && (this.OnixReturnsConditionsList.Length > 0))
+            if ((this.OnixReturnsConditionsList is not null) && (this.OnixReturnsConditionsList.Length > 0))
             {
                 bHasRetCodeBisac =
                     this.OnixReturnsConditionsList.Any(x => (x.ReturnsCodeTypeNum == OnixReturnsConditions.CONST_RET_CODE_TYPE_BISAC));
@@ -157,13 +157,13 @@ namespace OnixData.Version3.Supply
             {
                 string sRetCodeBisac = "";
 
-                if ((this.OnixReturnsConditionsList != null) && (this.OnixReturnsConditionsList.Length > 0))
+                if ((this.OnixReturnsConditionsList is not null) && (this.OnixReturnsConditionsList.Length > 0))
                 {
                     var RetConditions =
                         this.OnixReturnsConditionsList.Where(x => (x.ReturnsCodeTypeNum == OnixReturnsConditions.CONST_RET_CODE_TYPE_BISAC))
                                                       .FirstOrDefault();
 
-                    if (RetConditions != null)
+                    if (RetConditions is not null)
                         sRetCodeBisac = RetConditions.ReturnsCode;
                 }
 
